@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Slubberdegullion</title>
+	<meta charset="utf-8">
+	<style>
+		.leftTop {
+			width: 22vw;
+			background-color: #FBE8EE;
+			font-size: 2vw;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		.centerTop {
+			width: 42vw;
+			background-color: #DFF8DB;
+			font-size: 2vw;
+			font-family: Arial, Helvetica, sans-serif;
+			text-align: center;
+			
+		}
+		.rightTop {
+			width: 32vw;
+			background-color: #F5D8B4;
+			font-size: 2vw;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		.leftBottom {
+			width: 22vw;
+		}
+		.centerBottom {
+			width: 42vw;
+		}
+		.rightBottom {
+			width: 32vw;
+		}
+		.bigButton {
+			font-size: 2vw;
+		}
+		.minorMenu1 {
+			font-size: 3vw;
+		}
+		.minorMenu2 {
+			font-size: 3vw;
+		}
+		.subjectLabel {
+			margin-left: 6vw;
+		}
+		.mainText {
+			font-size: 1.3vw;
+			font-family: "Georgia";
+		}
+		.optionText {
+			font-size: 1.3vw;
+			font-family: "Georgia";
+			background-color: #DFF8DB;
+		}
+		.reactionText {
+			font-size: 1.3vw;
+			font-family: "Georgia";
+			background-color: #F5D8B4;
+		}
+		.reactionLabel {
+			font-size: 1vw;
+			font-family: "Helvetica";
+			margin-right: "50px";
+		}
+		.slider {
+			width: 25vw;
+			height: 2vw;
+			margin-left: "50px";			
+		}
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 6px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+	font-size: 1vw;
+	margin-left: 12vw;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 8vw;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 2px 6px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+	</style>
+	<script>
+		"use strict";
+// **********************************************************************************				
+	/* When the user clicks on the button, 
+	toggle between hiding and showing the dropdown content */
+	function myFunction() {
+  	document.getElementById("myDropdown").classList.toggle("show");
+	}
+// **********************************************************************************				
+	// Close the dropdown if the user clicks outside of it
+	window.onclick = function(event) {
+  	if (!event.target.matches('.dropbtn')) {
+    	var dropdowns = document.getElementsByClassName("dropdown-content");
+    	var i;
+    	for (i = 0; i < dropdowns.length; i++) {
+      	var openDropdown = dropdowns[i];
+      	if (openDropdown.classList.contains('show')) {
+        	openDropdown.classList.remove('show');
+      	}
+    	}
+  	}
+	}
+// **********************************************************************************				
+	function initialize() {
+		const firstMenu = document.getElementById("menu1");		
+		for (var i=0; (i<encounters.length); ++i) {
+			var opt = document.createElement("option");
+    	firstMenu.options.add(opt);
+    	opt.text = encounters[i].Title;
+    	firstMenu.options.add(opt);
+		}
+		const secondMenu = document.getElementById("menu2");
+		for (var i=0; (i<actors.length); ++i) {
+			var opt = document.createElement("option");
+    	secondMenu.options.add(opt);
+    	opt.text = actors[i].Name;
+    	secondMenu.options.add(opt);
+		}
+		
+		const introText = document.getElementById("introText");
+		var textArray = encounters[0].IntroText.split('%%');
+		var tempString = "";
+  	for(i = 0; i < textArray.length; i++) {
+  			// this is a check for isolated % characters
+  			if (textArray[i].includes("%")) console.log("Single % at "+textArray[i]);
+  	  	tempString += textArray[i]+"\r\r";
+  	  }
+		introText.textContent = tempString;
+		
+		const optionText1 = document.getElementById("option1");
+		optionText1.textContent = encounters[0].Options[0].OptionText;
+		const optionText2 = document.getElementById("option2");
+		optionText2.textContent = encounters[0].Options[1].OptionText;
+		const optionText3 = document.getElementById("option3");
+		optionText3.textContent = encounters[0].Options[2].OptionText;
+		
+		const reactionText1 = document.getElementById("reaction1");
+		reactionText1.textContent = encounters[0].Options[0].ReactionText;
+		if (reactionText1.textContent.includes("Unused Reaction")) {
+			reactionText1.style.color = "#888888";
+		}
+		const reactionText2 = document.getElementById("reaction2");
+		reactionText2.textContent = encounters[0].Options[1].ReactionText;
+		if (reactionText2.textContent.includes("Unused Reaction")) {
+			reactionText2.style.color = "#888888";
+		}
+		const reactionText3 = document.getElementById("reaction3");
+		reactionText3.textContent = encounters[0].Options[2].ReactionText;
+		if (reactionText3.textContent.includes("Unused Reaction")) {
+			reactionText3.style.color = "#888888";
+		}
+
+	}
+// **********************************************************************************
+		window.onload = initialize;
+// **********************************************************************************
+var actors = [
+	{ "Name": "Julius" },
+	{ "Name": "Fredegunda" },
+	{ "Name": "Sinchi Roca" },
+	{ "Name": "Caligula" },
+	{ "Name": "Uriah" },
+]
+var encounters = [
+  {
+    "Title": "GoneFishing1",
+    "IntroText": "You grab a hunk of bread and slink through the hall. Opening the door quietly, you slip outside, then stride rapidly towards the stables 200 yards away. With luck, you can get out of Camelot before anybody waylays you.%%\"Arthur! Arthur!\"%%{Dochyell deeinvey! How does that woman do it? She couldn't possibly have heard me!}%%You turn around slowly and slap on the best fake smile you can muster. \"Uh, good morning, Guenevere!\" You must have awakened her when you left. The poor woman didn't come to bed until late last night; she has been working until late every night with some other women repairing clothing.%%\"Arthur, Duless has run out of bay leaves. You'll be going by Yowan's place, won't you?\"%%\"Uh, yes, they're not far from the area I'll be scouting today.\"%%\"Could you stop by Yowan's and pick some bay leaves for Duless?\"%%\"Yeah, sure, I'll do it on the way back from scouting.\"%%\"Thanks.\"%%You turn back towards the stables.%%\"Good luck fishing!\" she calls cheerily.%%{Nathrach, how does she know these things? I didn't breathe a word to anybody that I was going fishing. The last few days have been one pain in the butt after another. The endless squabbles over trivial crap. This one is pissed because his shovel is bent. That one wants me to scold her co-worker for not working hard enough. Somebody else complains that the soup tasted bad the other night. These people are driving me crazy! Guenevere can cope with it, but I've GOT to get out of here and get some peace and quiet! Fishing is the only way I get to rest; it's been weeks since I last went fishing.}%%Cutana is walking along beside you. \"Well, what do YOU have to complain about, dog?\" He looks up at you with eyes full of admiration and loyalty, ready for another adventure. \"I'm sorry, Cutana; you're the most faithful friend I have. I'm glad it's just you and me today. If we catch a fish, you get the head, OK?\"%%Cutana wags his tail vigorously; his face says \"Oh, boy! A fish head! Yummy!\" %%\"Yeah, Cutana, you and me!\"%%You reach the stables. The place is quiet; it's early and most people are just getting up. Your favorite horse has been out hauling manure for the local farmers. You select another horse and toss a big rag over its back. You pull the halter over his head, then set the bit in his mouth and lay the reins behind his neck. You lead him outside; the slope of the hill there gives you a few extra inches of height. You guide him into position and then leap up onto his back. He's an experienced horse, barely shifting in response to your suddenly landing in his back. Your feet hang down loosely on either side of his flanks. He's an older guy and you chose him because he's not frisky; you won't need to spend the day holding on desperately with your knees. %%Cutana is dancing around excitedly; he can see that you're heading out for an adventure. You wink at him. \"Let's get going, Cutana!\" You head for the northeast gate. One of the guards comes down from the overhead lookout and pushes one of the big doors open for you. You feel the warmth of the sun on the side of your face as you head out into a beautiful day. You've got your fishing spool, a bit of bread in your bag, and your dog at your side.",
+    "Options": [
+      {
+        "OptionText": "\"Let's hit the road, Cutana!\"",
+        "DeltaBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaTimid_Dominant": 0,
+        "DeltaPBad_Good": 0,
+        "DeltaPFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "ReactionText": "The two of you head out of Camelot.",
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaTimid_Dominant": 0,
+        "DeltaPBad_Good": 0,
+        "DeltaPFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "ReactionText": "Unused Reaction",
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaTimid_Dominant": 0,
+        "DeltaPBad_Good": 0,
+        "DeltaPFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "ReactionText": "Unused Reaction",
+      }
+    ]
+  },
+  {
+    "Title": "GoneFishing2",
+    "IntroText": "You stay on the old Roman road for only a few miles; it's slower but more pleasant going through the forest. Cutana is having a great time following his nose and chasing after every telltale scent. Even the horse seems happy strolling through the forest. %%You pass by an old abandoned manor. A hundred years ago this place was a bustling hive of activity. There were probably a hundred people employed in and around the manor. You pause to imagine what life was like back then. There would have been plenty of people working on preparing meals for everybody; women making clothes; probably a couple of leather workers making shoes; people cleaning the dirty clothes. The wife of the owner would have overseen all the activity; the owner himself would have spent most of his time out of the house, checking on the farmers to see what they might need, sometimes traveling to Londinium on business. %%You snort with the realization that you do much the same thing as that manor owner, only with a lot more people. There are only a few hundred people at Camelot, but there are hundreds more farmers and cattle-tenders in your domain, and many hundreds more in each of the domains of the kinglets over whom you rule.%%That manor owner had it so much easier than you. He didn't have Saxon invaders to worry about. Britain was at peace; the Roman legions protected it from the Pict barbarians in the north and the Irish pirates in the west. Those filthy Saxons didn't dare come near Britain; any foolish enough to make the attempt were quickly eliminated.%%Those were the days of Romanitas: Roman life and culture. We had Roman technology for making wondrous things. Roman law guaranteed fairness and justice in society. Roman arms kept merchant routes open, and every day ships arriving at Londinium brought all manner of marvelous products from all over the world. Life was bright and orderly; everybody had their fair place in society and people were happy. %%You never directly experienced Romanitas; it was already half-gone when you were a boy. But your uncle Ambrosius Aurelianus delighted in telling you grand tales of what life was like under Romanitas. It seemed heavenly. Now it is gone.%%Now the Saxons have already taken over half the country. You lead the Briton people in the south; further north, other Briton kings try to hold their ground against the ever-growing tide of Saxons and Angles. You've had relative peace for fifteen years now, ever since you kicked their butts at Mount Badon. The Saxons regularly mount raids to steal cattle, pillage, and kill, but the raids are really just demonstrations, not attempts at conquest. %%You give your horse a nod with your reins, and it saunters across the open area around the manor. The roof of the manor house has long since caved in, but there are still roof tiles scattered about. Those old Roman manors were well-built; they didn't leak rain like the thatched roofs your people use now. Of course, buildings like that took a lot of special materials: big oak beams, baked clay roof tiles, bricks, mortar--stuff that had to be brought in from all over the country. They had good roads back then, and plenty of horses and carts to move things.%%You once saw an actual, functioning Roman manor when you were young. It was an impressive building, very large, with a tiled floor and painted walls and plenty of separate rooms. It had rooms on top of the other rooms, and a kind of diagonal ladder for climbing up to the upper rooms. This one, though, was sacked and burned by the Saxons in one of their raids decades ago.%%You sigh. Those were good days. %%Cutana suddenly dashes away at top speed; you can't see what he's after.",
+    "Options": [
+      {
+        "OptionText": "\"Go get 'em, Cutana!\"",
+        "DeltaBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaTimid_Dominant": 0,
+        "DeltaPBad_Good": 0,
+        "DeltaPFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "ReactionText": "He disappears into some bushes but emerges a few moments later, empty of jaw.",
+       },
+      {
+        "OptionText": "Unused Option",
+        "DeltaBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaTimid_Dominant": 0,
+        "DeltaPBad_Good": 0,
+        "DeltaPFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "ReactionText": "Unused Reaction",
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaTimid_Dominant": 0,
+        "DeltaPBad_Good": 0,
+        "DeltaPFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "ReactionText": "Unused Reaction",
+      }
+    ]
+  },
+  {
+    "Title": "GoneFishing3",
+    "IntroText": "You like to come to this spot on the river. It's quiet and peaceful; nobody ever comes here. It's the border of Briton lands; ten miles east of here is the small river functioning as the border of Saxon lands. In between lie the Empty Lands, where nobody dares set up a farm. Both Britons and Saxons patrol these lands, seldom making contact. But crossing the border rivers entails considerably greater risk, because there are only a few fords. Once you've crossed a border river, you can be trapped by an enemy force waiting to ambush you. This has established an equilibrium between the two sides. Military realities have forced a modicum of peace onto bloodthirsty opponents. %%The river here is broad and shallow; a man on horseback could get across but not on foot. There's a ford about five miles upstream and another about three miles downstream. The river ambles along pleasantly. The near side bank is steep, about six feet high, but the far side is marshy; ducks and geese paddle around there.%%You retrieve your fishing spool from your bag and unwind the string from the wooden float. You pluck a fragment from the hunk of rotten meat you brought and affix it to the hook. Cutana sniffs at the meat but you wave him away. \"Bad meat, Cutana. We'll get you some fresh fish soon enough.\" Holding firmly on the loose end of the string, you toss the float and hook into the water and sit down on a log.%%Now at last you can listen to the birdsong. Listening carefully, you count the different songs; within just a few moments, you've identified eleven different kinds of birds. There are two birds singing a similar song; they alternate in a kind of competition, each one trying to outdo the other. Even the birds have their wars, you muse; wouldn't it be glorious if we humans could fight our wars with songs instead of spears? %%You imagine the battle: the Saxons line up on their side of the battlefield, and the Britons opposite them. The Saxons launch their musical attack with loud, deep voices. The Britons respond with a medley of deep and middle voices. Back and forth the struggle goes, until the Britons unleash their secret weapon: the high voices of the women balanced against the deeper voices of the men. Trounced, the Saxons flee in shame, and the Britons dance in triumph. %%Yes, that's how we should fight our battles, you think. But instead...you recall the young Saxon man you speared a month ago. He was fleeing on foot and you were running him down on your horse. At the last instant, he turned to face you just before the spear rammed into his chest. You cannot purge your mind of the expression of horror and dismay on his face as the spear struck home. You snort angrily and turn your eyes to the distance.%%The forest is continuous all the way to the horizon. For miles and miles the forest stretches, unthinned by human axes. The forest exhales a thin bluish haze. %%Cutana stands beside you in happy camraderie. He's too excited to sit. His alert ears turn to every sound and his eyes dart about in excited appreciation of nature. \"Yep\" you say happily. \"You and me, Cutana. You and me.\"",
+    "ImageLabel": "GoneFishing3",
+    "Options": [
+      {
+        "OptionText": "I savor the silence.",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Cutana, by contrast, follows every tiny sound. ",
+            "ConsequenceText": "GoneFishing4"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Title": "GoneFishing4",
+    "IntroText": "\"What am I going to do about that brat Mordred?\" you say to Cutana. He turns to look at you, but doesn't have an answer.  You fantasize about lopping off Mordred's head with a single furious stroke of Excalibur -- but it's only a fantasy. He's your illegitimate son, and killing him would be a shameful act; you'd lose the respect of the people. You may be the king, but there's no long line of kings preceding you, just your uncle Ambrosius Aurelianus. The Britons have been a fractious people ever since the Roman government disintegrated nearly a century ago. They're always squabbling among themselves. Only the threat from the Saxons maintains the fragile coalition underlying your rule. You've got to...%%Suddenly you shake your head and spit. \"Sorry, Cutana, I'm here to fish, not fret over politics.\" Cutana's face says \"Whatever you say, boss!\" You need to clear your mind, to find the emotional strength to cope with the myriad pressures of your life. %%With a start, you realize that there's a man standing on the opposite bank of the river. You're certain that he wasn't there a moment ago. He's wearing long black robes, a serious mien, and appears to be bald. No, wait -- perhaps he's wearing some sort of hat that makes him look bald; you can't tell from this distance. He stands quietly, looking directly at you, without moving. %%\"Hey, you!\" you shout.%%He continues staring at you, but does not respond.%%Perhaps you need to stoke the conversation. \"My name is Arthur. What's yours?\"%%He opens his mouth to answer, but you hear the answer come as a whisper from behind you: \"Merlin\". You whirl around to see who said that, but there's nobody there. You turn back to face him, but he is gone. You stare at the empty riverbank for a long minute, trying to comprehend what just happened, when the string in your hand suddenly jerks.%%\"Look, Cutana, the wooden float is bobbing!\" you cry. He stands up in excited anticipation. You hadn't even noticed the bobbing because you were so entranced by this Merlin fellow. You tighten your grip on the string, then give it a few gentle pulls. The fish takes the bait and suddenly the wooden float disappears. You pull on the string and feel the weight of the fish; it's not especially big, but it's definitely big enough for a meal. Excited, you stand up. Cutana is right there with you, his big ears focused on the spot where the string disappears into the water. He's wagging his tail excitedly.%%\"Cutana, we hooked a fish!\" %%The fish yanks at the string and you let some string play out; you don't want this one getting away by breaking the string and swimming away with your only hook. It would be so embarrassing to have to ask Atrectus the smith to make you another. You pull slowly, gently, then yield when the fish fights. Patiently, you bring the fish closer to the bank. It fights against the string, but your steady, insistent pull and ready yielding when it yanks is inexorably drawing it closer. %%Now you can see it struggling just below the surface. Cutana leaps into the water and seizes it in his jaws, bringing it back to you. You take it out of his mouth; his teeth haven't even broken the fish's skin. He's good that way.%%You place the fish down on a flat rock and decapitate it with your knife. You wrap the fish in a rag and place it in your bag. Cutana helps himself to the head; that's his reward. You give him time to crunch it up, swallow it, and lick up any last little bits. He looks at you as if to say, \"Yum! That was good!\" %%\"Let's go home, boy!\" Turning one last time to glance at the opposite river bank, you mount your horse and head back to Camelot, with Cutana strutting alongside you. You glance down at him just as he's glancing up at you, his long tongue hanging out; the two of you share the feeling of being on top of the world.",
+    "ImageLabel": "GoneFishing4",
+    "Options": [
+      {
+        "OptionText": "\"You and me, Cutana!\"",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "ReturnFromFishing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      }
+    ]
+  },
+]
+	</script>
+</head>
+<body font-family: Verdana, Helvetica, sans-serif; style="background-color:#FFFFFF">
+	<table>
+  	<tr>
+    	<th id="topLeft" class="leftTop">
+    		<button id="addButton" type="button" class="bigButton">+</button>
+    		<label>Encounters</label>
+    		<button id="deleteButton" type="button" class="bigButton">-</button>
+    	</th>
+    	<th id="topCenter" class="centerTop">
+    		<label>Branch:</label>
+    		<select id="menu1" class="minorMenu1"></select>
+    		<label class="subjectLabel">Subject:</label>
+    		<select id="menu2" class="minorMenu2"></select>
+    		
+    	</th> 
+    	<th id="topRight" class="rightTop">
+    		<label>Reactions</label>
+				<div class="dropdown">
+  				<button onclick="myFunction()" class="dropbtn">Miscellaneous</button>
+  				<div id="myDropdown" class="dropdown-content">
+    				<a href="#load">Load</a>
+    				<a href="#save">Save</a>
+    				<a href="#monkeys">Monkeys</a>
+  				</div>
+				</div>
+    	</th>
+  	</tr>
+  	<tr>
+    	<td id="bottomLeft" class="leftBottom">
+    		<select id="encounterList"></select>
+    	</td>
+    	<td id="bottomCenter" class="centerBottom">
+				<textarea id="introText" name="introText" rows="20" cols="70" class="mainText"></textarea>
+				<textarea id="option1" name="option1" rows="4" cols="70" class="optionText"></textarea>
+				<textarea id="option2" name="option1" rows="4" cols="70" class="optionText"></textarea>
+				<textarea id="option3" name="option1" rows="4" cols="70" class="optionText"></textarea>				
+			</td> 
+    	<td id="bottomRight" class="rightBottom">
+				<textarea id="reaction1" name="reaction1" rows="2" cols="60" class="reactionText"></textarea>	
+				<div>
+					<label class="reactionLabel">Bad_Good</label>
+  				<input type="range" min="1" max="100" value="50" id="reaction1Slider1" class="slider">
+					<label class="reactionLabel">0.0</label>
+  			</div>
+				<div>
+					<label class="reactionLabel">False_Honest</label>
+  				<input type="range" min="1" max="100" value="50" id="reaction1Slider2" class="slider">
+					<label class="reactionLabel">0.0</label>
+  			</div>
+				<div>
+					<label class="reactionLabel">Timid_Dominant</label>
+  				<input type="range" min="1" max="100" value="50" id="reaction1Slider3" class="slider">
+					<label class="reactionLabel">0.0</label>
+  			</div>
+				<div>
+					<label class="reactionLabel">pBad_Good</label>
+  				<input type="range" min="1" max="100" value="50" id="reaction1Slider4" class="slider">
+					<label class="reactionLabel">0.0</label>
+  			</div>
+				<div>
+					<label class="reactionLabel">pFalse_Honest</label>
+  				<input type="range" min="1" max="100" value="50" id="reaction1Slider5" class="slider">
+					<label class="reactionLabel">0.0</label>
+  			</div>
+				<div>
+					<label class="reactionLabel">pTimid_Dominant</label>
+  				<input type="range" min="1" max="100" value="50" id="reaction1Slider6" class="slider">
+					<label class="reactionLabel">0.0</label>
+  			</div>
+												
+				<textarea id="reaction2" name="reaction1" rows="2" cols="60" class="reactionText"></textarea>				
+				<label class="reactionLabel">Bad_Good</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction2Slider1" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">False_Honest</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction2Slider2" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">Timid_Dominant</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction2Slider3" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">pBad_Good</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction2Slider4" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">pFalse_Honest</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction2Slider5" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">pTimid_Dominant</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction2Slider6" class="slider">
+				<label class="reactionLabel">0.0</label>
+												
+				<textarea id="reaction3" name="reaction1" rows="2" cols="60" class="reactionText"></textarea>				
+				<label class="reactionLabel">Bad_Good</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction3Slider1" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">False_Honest</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction3Slider2" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">Timid_Dominant</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction3Slider3" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">pBad_Good</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction3Slider4" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">pFalse_Honest</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction3Slider5" class="slider">
+				<label class="reactionLabel">0.0</label>
+				<label class="reactionLabel">pTimid_Dominant</label>
+  			<input type="range" min="1" max="100" value="50" id="reaction3Slider6" class="slider">
+				<label class="reactionLabel">0.0</label>
+												
+    	</td>
+  	</tr>
+	</table>
+</body>
+</html>
