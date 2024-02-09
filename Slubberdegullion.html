@@ -67,7 +67,10 @@
 		.slider {
 			width: 200px;
 			height: 20px;
-			margin-left: "50px";			
+			margin-left: 50px;
+			min: 1;
+			max: 100;
+			value: 50;			
 		}
 .dropbtn {
   background-color: #3498DB;
@@ -120,6 +123,8 @@
 	</style>
 	<script>
 		"use strict";
+		var reactions = new Array(3);
+		var sliders = new Array(18);
 // **********************************************************************************				
 	/* When the user clicks on the button, 
 	toggle between hiding and showing the dropdown content */
@@ -185,22 +190,52 @@
 		const optionText3 = document.getElementById("option3");
 		optionText3.textContent = encounters[0].Options[2].OptionText;
 		
-		const reactionText1 = document.getElementById("reaction1");
-		reactionText1.textContent = encounters[0].Options[0].ReactionText;
-		if (reactionText1.textContent.includes("Unused Reaction")) {
-			reactionText1.style.color = "#888888";
+		// Big job: creating the sliders
+		for (i=0; i<3; ++i) {
+			reactions[i] = document.createElement("div");
+			var reactionTextArea = document.createElement("textArea");
+			reactionTextArea.rows = "2";
+			reactionTextArea.columns = "60";
+			reactionTextArea.class = "reactionText";
+			reactionTextArea.textContent = encounters[0].Options[i].ReactionText;
+			if (reactionTextArea.textContent.includes("Unused Reaction")) {
+				reactionTextArea.style.color = "#888888";
+			}
+			let num = i;
+			reactionTextArea.id = "reactionTextArea" + num.toString();
+			reactions[i].appendChild(reactionTextArea);
+			
+			for (var j=0; j<6; ++j) {
+				var subDiv = document.createElement("div");
+				var varLabel = document.createElement("label");
+				switch (j) {
+					case 0: { varLabel.innerHTML = "Bad_Good"; break; }
+					case 1: { varLabel.innerHTML = "False_Honest"; break; }
+					case 2: { varLabel.innerHTML = "Timid_Dominant"; break; }
+					case 3: { varLabel.innerHTML = "pBad_Good"; break; }
+					case 4: { varLabel.innerHTML = "pFalse_Honest"; break; }
+					case 5: { varLabel.innerHTML = "pTimid_Dominant"; break; }
+				} 
+				subDiv.appendChild(varLabel);
+				var iSlider = 6*i + j;
+				sliders[iSlider] = document.createElement("range");
+				var myNumber = iSlider;
+				
+				sliders[iSlider].id = "slider"+myNumber.toString();
+				sliders[iSlider].class = "slider";
+				subDiv.appendChild(sliders[iSlider]);
+// These three lines generate an error that testSlider is null. Stupid Javascript
+//				var testSlider = document.getElementById("testSlider");
+//				console.log(testSlider);
+//				subDiv.appendChild(testSlider);
+				var secondLabel = document.createElement("label");
+				secondLabel.innerHTML = "50";
+				subDiv.appendChild(secondLabel);
+//				console.log(subDiv);
+				reactions[i].appendChild(subDiv);
+			}
+			document.getElementById("bottomRight").appendChild(reactions[i]);
 		}
-		const reactionText2 = document.getElementById("reaction2");
-		reactionText2.textContent = encounters[0].Options[1].ReactionText;
-		if (reactionText2.textContent.includes("Unused Reaction")) {
-			reactionText2.style.color = "#888888";
-		}
-		const reactionText3 = document.getElementById("reaction3");
-		reactionText3.textContent = encounters[0].Options[2].ReactionText;
-		if (reactionText3.textContent.includes("Unused Reaction")) {
-			reactionText3.style.color = "#888888";
-		}
-
 	}
 // **********************************************************************************
 		window.onload = initialize;
@@ -377,6 +412,190 @@ var encounters = [
       }
     ]
   },
+  {
+    "Title": "Random Encounter",
+    "IntroText": "",
+    "ImageLabel": "RandomEncounter",
+    "Options": [
+      {
+        "OptionText": "Goofy",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Title": "Doing Nothing",
+    "IntroText": "Nope, not doing anything at all",
+    "ImageLabel": "RandomEncounter",
+    "Options": [
+      {
+        "OptionText": "",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "So what?",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Title": "Fast Asleep",
+    "IntroText": "I am fast asleep and unaware of this encounter",
+    "ImageLabel": "RandomEncounter",
+    "Options": [
+      {
+        "OptionText": "Snore",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Title": "Walk Slowly",
+    "IntroText": "Nothing here",
+    "ImageLabel": "RandomEncounter",
+    "Options": [
+      {
+        "OptionText": "",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      },
+      {
+        "OptionText": "Unused Option",
+        "DeltaPBad_Good": 0,
+        "DeltaFalse_Honest": 0,
+        "DeltaPTimid_Dominant": 0,
+        "DeltaWisdom": 0,
+        "Reaction": [
+          {
+            "ReactionText": "Unused Reaction",
+            "ConsequenceText": "Nothing"
+          }
+        ]
+      }
+    ]
+  },
 ]
 	</script>
 </head>
@@ -421,78 +640,8 @@ var encounters = [
 				<textarea id="option3" name="option1" rows="4" cols="70" class="optionText"></textarea>				
 			</td> 
     	<td id="bottomRight" class="rightBottom">
-				<textarea id="reaction1" name="reaction1" rows="2" cols="60" class="reactionText"></textarea>	
-				<div>
-					<label class="reactionLabel">Bad_Good</label>
-  				<input type="range" min="1" max="100" value="50" id="reaction1Slider1" class="slider">
-					<label class="reactionLabel">0.0</label>
-  			</div>
-				<div>
-					<label class="reactionLabel">False_Honest</label>
-  				<input type="range" min="1" max="100" value="50" id="reaction1Slider2" class="slider">
-					<label class="reactionLabel">0.0</label>
-  			</div>
-				<div>
-					<label class="reactionLabel">Timid_Dominant</label>
-  				<input type="range" min="1" max="100" value="50" id="reaction1Slider3" class="slider">
-					<label class="reactionLabel">0.0</label>
-  			</div>
-				<div>
-					<label class="reactionLabel">pBad_Good</label>
-  				<input type="range" min="1" max="100" value="50" id="reaction1Slider4" class="slider">
-					<label class="reactionLabel">0.0</label>
-  			</div>
-				<div>
-					<label class="reactionLabel">pFalse_Honest</label>
-  				<input type="range" min="1" max="100" value="50" id="reaction1Slider5" class="slider">
-					<label class="reactionLabel">0.0</label>
-  			</div>
-				<div>
-					<label class="reactionLabel">pTimid_Dominant</label>
-  				<input type="range" min="1" max="100" value="50" id="reaction1Slider6" class="slider">
-					<label class="reactionLabel">0.0</label>
-  			</div>
-												
-				<textarea id="reaction2" name="reaction1" rows="2" cols="60" class="reactionText"></textarea>				
-				<label class="reactionLabel">Bad_Good</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction2Slider1" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">False_Honest</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction2Slider2" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">Timid_Dominant</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction2Slider3" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">pBad_Good</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction2Slider4" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">pFalse_Honest</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction2Slider5" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">pTimid_Dominant</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction2Slider6" class="slider">
-				<label class="reactionLabel">0.0</label>
-												
-				<textarea id="reaction3" name="reaction1" rows="2" cols="60" class="reactionText"></textarea>				
-				<label class="reactionLabel">Bad_Good</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction3Slider1" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">False_Honest</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction3Slider2" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">Timid_Dominant</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction3Slider3" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">pBad_Good</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction3Slider4" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">pFalse_Honest</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction3Slider5" class="slider">
-				<label class="reactionLabel">0.0</label>
-				<label class="reactionLabel">pTimid_Dominant</label>
-  			<input type="range" min="1" max="100" value="50" id="reaction3Slider6" class="slider">
-				<label class="reactionLabel">0.0</label>
-												
+    			<! this is inserted solely for testing purposes -- -->
+  				<input type="range" id="testSlider" class="slider">
     	</td>
   	</tr>
 	</table>
