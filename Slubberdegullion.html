@@ -40,6 +40,10 @@
   				transition: opacity .2s;
 				}
 
+input[type=range]{
+    -webkit-appearance: none;
+}
+
 				.slider:hover {
 				  opacity: 1;
 				}
@@ -47,8 +51,9 @@
 				.slider::-webkit-slider-thumb {
 				  -webkit-appearance: none;
 				  appearance: none;
-				  width: 25px;
-				  height: 25px;
+    border-radius: 50%;
+				  width: 24px;
+				  height: 24px;
 				  background: #04AA6D;
 				  cursor: pointer;
 				}
@@ -103,7 +108,7 @@
       align: right;
 		}
 		.encList {
-			font-size: 18px;
+			font-size: 16px;
 			width: 240px;
 			height: 639px;
 		}
@@ -129,6 +134,7 @@
   font-size: 16px;
   border: none;
   cursor: pointer;
+  width: 120px;
 }
 
 .dropbtn:hover, .dropbtn:focus {
@@ -163,7 +169,7 @@
 
 .show {display: block;}
 
-.encounterOption {
+.theEncounter {
 	font-size:48px;
 	background: "red";
 }
@@ -172,7 +178,44 @@
 		"use strict";
 		var reactionTextArea = new Array(3);
 		var sliders = new Array(18);
-    var sliderLabels = ["Bad_Good", "False_Honest", "Timid_Dominant", "pBad_Good", "pFalse_Honest", "pTimid_Dominant"];
+    var sliderLabels = ["Temperature", "Asabiyah", "Chinese", "CC Concern", "Bipartisanship", "Assertiveness"];
+    var actors = ["China", "Russia", "EU"];
+
+		var reactions = new Array(3);
+		var eList;
+		var firstMenu;
+		var iEncounter;
+		
+		
+		class Option {
+			optionText;
+			delta = new Array(6);
+			reactionText;
+			
+			constructor() {
+				this.optionText = "Unused Option";
+				this.reactionText = "Unused Reaction";
+			}
+		}
+		
+		class OptionArray {
+			theOptions = new Array(3);
+			
+			constructor() {
+			}
+		}
+
+		class Encounter {
+			title;
+			introText;
+			options = Array(3);
+
+	    constructor(title) {
+	    	this.title = title;
+	    	this.introText = "introductory text";
+	    	this.options = new OptionArray();
+	    }
+    }
 // **********************************************************************************				
 	/* When the user clicks on the button, 
 	toggle between hiding and showing the dropdown content */
@@ -194,451 +237,298 @@
   	}
 	}
 // **********************************************************************************				
-	function initialize() {
-		const eList = document.getElementById("encounterList");	
-		for (var i=0; (i<encounters.length); ++i) {
+	function addButtonClick() {
+  let encounterName = prompt("Name of new encounter:", "The new encounter");
+  if (encounterName != null && encounterName != "") {
+  		iEncounter = encounters.length;
+  		var newEncounter = new Encounter(encounterName);
+			encounters.push(newEncounter);
+    	var option0 = new Option();
+    	for (var i=0; i<6; ++i) option0.delta[i] = 50;
+    	newEncounter.options[0] = option0;
+    	var option1 = new Option();
+    	for (i=0; i<6; ++i) option1.delta[i] = 50;
+    	newEncounter.options[1] = option1;
+    	var option2 = new Option();
+    	for (i=0; i<6; ++i) option2.delta[i] = 50;
+    	newEncounter.options[2] = option2;
+
+			var enc = document.createElement("option");
+			enc.class = "theEncounter";
+			enc.style.fontSize = "24px";
+    	enc.text = encounterName;
+			enc.addEventListener("click", (event) => {
+  			setupEncounter(event.target.innerHTML);
+			});
+			eList = document.getElementById("encounterList");	
+    	eList.options.add(enc);
+    	eList.value = encounters.length-1;
+    	displayEncounter(encounters.length-1);   
+
 			var opt = document.createElement("option");
-			opt.class = "encounterOption";
-			opt.style.fontSize = "24px";
-    	opt.text = encounters[i].title;
-    	eList.options.add(opt);
+    	opt.text = encounters[encounters.length-1].title;
+    	firstMenu.options.add(opt);
+
+  }
+}
+// **********************************************************************************				
+	function deleteButtonClick() {
+		console.log("delete button clicked");
+	}		
+// **********************************************************************************	
+	function setupEncounter(title) {
+		var i = 0;
+		while ((i<encounters.length) & (!(title === encounters[i].title))) ++i;
+		if (i<encounters.length) {
+			iEncounter = i;
+			displayEncounter();
+		}
+	}			
+// **********************************************************************************				
+	function initialize() {
+//		loadStoryworld();
+		eList = document.getElementById("encounterList");	
+		for (var i=0; (i<encounters.length); ++i) {
+			var enc = document.createElement("option");
+			enc.class = "theEncounter";
+			enc.style.fontSize = "24px";
+    	enc.text = encounters[i].title;
+			enc.addEventListener("click", (event) => {
+  			setupEncounter(event.target.innerHTML);
+			});
+    	eList.options.add(enc);
 		}
 
 
-		const firstMenu = document.getElementById("menu1");		
+		firstMenu = document.getElementById("menu1");		
 		for (var i=0; (i<encounters.length); ++i) {
 			var opt = document.createElement("option");
     	firstMenu.options.add(opt);
     	opt.text = encounters[i].title;
-    	firstMenu.options.add(opt);
 		}
 		const secondMenu = document.getElementById("menu2");
 		for (var i=0; (i<actors.length); ++i) {
 			var opt = document.createElement("option");
     	secondMenu.options.add(opt);
-    	opt.text = actors[i].Name;
+    	opt.text = actors[i];
     	secondMenu.options.add(opt);
 		}
 		
-		const introText = document.getElementById("introText");
-		var textArray = encounters[0].introText.split('%%');
+		iEncounter = 0;
+		displayEncounter();
+	}
+// **********************************************************************************	
+	function displayEncounter() {		
+    eList.options[iEncounter].selected = true;
+		const introElement = document.getElementById("introText");
+		var textArray = encounters[iEncounter].introText.split('%%');
 		var tempString = "";
-  	for(i = 0; i < textArray.length; i++) {
+  	for(var i = 0; i < textArray.length; i++) {
   			// this is a check for isolated % characters
   			if (textArray[i].includes("%")) console.log("Single % at "+textArray[i]);
   	  	tempString += textArray[i]+"\r\r";
   	  }
-		introText.textContent = tempString;
+//  	  console.log(tempString);
+		introElement.textContent = tempString;
 		
 		var optionText0 = document.getElementById("option0");
-		var optionContents = encounters[0].options[0].optionText;
+		var optionContents = encounters[iEncounter].options[0].optionText;
 		optionText0.textContent = optionContents;
 		if (optionContents.includes("Unused Option")) {
 				optionText0.style.color = "#888888";
 		}
 
 		var optionText1 = document.getElementById("option1");
-		optionContents = encounters[0].options[1].optionText;
+		optionContents = encounters[iEncounter].options[1].optionText;
 		optionText1.textContent = optionContents;
-		if (optionContents.includes("Unused Option")) {
-				optionText1.style.color = "#888888";
-		}
+//		if (optionContents.includes("Unused Option")) {
+//				optionText1.style.color = "#888888";
+//		}
 		var optionText2 = document.getElementById("option2");
-		var optionContents = encounters[0].options[2].optionText;
+		var optionContents = encounters[iEncounter].options[2].optionText;
 		optionText2.textContent = optionContents;
-		if (optionContents.includes("Unused Option")) {
-				optionText2.style.color = "#888888";
-		}
+//		if (optionContents.includes("Unused Option")) {
+//				optionText2.style.color = "#888888";
+//		}
 		
 		for (i=0; i<3; ++i) {
 				let n = i; 
 				reactionTextArea[i] = document.getElementById("reaction"+n.toString());
-				console.log(reactionTextArea[i]);
-				var contents = encounters[0].options[i].reactionText;
+				var contents = encounters[iEncounter].options[i].reactionText;
 				reactionTextArea[i].value = contents;
-				if (contents.includes("Unused Reaction")) {
-					reactionTextArea[i].style.color = "#888888";
-				}
-			
-			for (var j=0; j<6; ++j) {
-				var iSlider = 6*i + j;
-				var m = iSlider;
-				var subDiv = document.getElementById("sliderElement"+m.toString());	
-				sliders[iSlider] = document.getElementById("slider"+m.toString());
-				sliders[iSlider].addEventListener("input", function() {
-					var x = this.id.substring(6);
-					var theLabel = document.getElementById("valueLabel"+x);
-					theLabel.innerHTML = this.value;
-    		} );
-    	}
+//				if (contents.includes("Unused Reaction")) {
+//					reactionTextArea[i].style.color = "#888888";
+//				}
+        for (var j=0; j<6; ++j) {
+          var iSlider = 6*i + j;
+        	var globalLabel = document.getElementById("sliderLabel"+iSlider);
+        	globalLabel.innerHTML = "∆_"+sliderLabels[j];
+          var m = iSlider;
+          var subDiv = document.getElementById("sliderElement"+m.toString());    
+          sliders[iSlider] = document.getElementById("slider"+m.toString());
+          sliders[iSlider].value = encounters[iEncounter]["options"][i]["delta"][j];
+          sliders[iSlider].addEventListener("input", function() {
+              var x = this.id.substring(6);
+              var iOption = Math.floor(x/6);
+              var iGlobal = x % 6;
+              var theLabel = document.getElementById("valueLabel"+x);
+              var y = (this.value - 50)/50;
+              theLabel.innerHTML = y;
+              encounters[iEncounter]["options"][iOption]["delta"][iGlobal] = this.value;
+      			} );
+      		var z = (encounters[iEncounter]["options"][i]["delta"][j] - 50)/50;
+      		document.getElementById("valueLabel"+iSlider).innerHTML = z;
+        }			
 		}
 	}
 // **********************************************************************************
+  function loadStoryworld() {
+    fetch("./storyworld.json")
+      .then((res) => {
+         if (!res.ok) {
+            throw new Error
+               (`HTTP error! Status: ${res.status}`);
+         }
+            return res.json();
+       })
+       .then((data) => 
+           console.log(data))
+      .catch((error) => 
+         console.error("Unable to fetch data:", error));
+  	}
+// **********************************************************************************
+	function storeEncounter() {
+		encounters[iEncounter].introText = document.getElementById("introText").value;
+		encounters[iEncounter].options[0].optionText = document.getElementById("option0").value;
+		encounters[iEncounter].options[1].optionText = document.getElementById("option1").value;
+		encounters[iEncounter].options[2].optionText = document.getElementById("option2").value;
+		encounters[iEncounter].options[0].reactionText = document.getElementById("reaction0").value;
+		encounters[iEncounter].options[1].reactionText = document.getElementById("reaction1").value;
+		encounters[iEncounter].options[2].reactionText = document.getElementById("reaction2").value;		
+	}
+// **********************************************************************************
+	function saveButtonClick() {
+		storeEncounter(); // this saves the most recently edited content
+		for (var i=0; i<encounters.length; ++i) {
+			encounters[i].introText = encounters[i].introText.replaceAll(",", "@");
+			for (var j=0; j<3; ++j) {
+				encounters[i].options[j].optionText = encounters[i].options[j].optionText.replaceAll(",", "@");
+				encounters[i].options[j].reactionText = encounters[i].options[j].reactionText.replaceAll(",", "@");
+			}
+		}
+		var encounterJSON = JSON.stringify(encounters);		
+		encounterJSON = encounterJSON.replaceAll("[", "[\n");
+		encounterJSON = encounterJSON.replaceAll("{", "{\n");
+		encounterJSON = encounterJSON.replaceAll(",", ",\n");
+		encounterJSON = encounterJSON.replaceAll("@", ",");
+		console.log(encounterJSON);
+  }
+// **********************************************************************************	
+		/*
+		var unStrungEncounters = JSON.parse(encounterJSON);
+		console.log(unStrungEncounters);
+    const link = document.createElement("a");
+		var textBlob = new Blob([encounterJSON], {type: 'text/plain'});
+		console.log(textBlob);
+    link.href = URL.createObjectURL(textBlob);
+    link.download = "storyworld.txt";
+    link.click();
+    URL.revokeObjectURL(link.href);
+    
+    const reader = new FileReader();
+		reader.addEventListener("loadend", () => {
+  		console.log(
+		});
+
+		reader.readAsArrayBuffer(textBlob);
+		*/
+// **********************************************************************************
+const add_line = (function () {  const php_file =    'https://www.erasmatazz.com/LMD/append_to_file.php';
+return function (file, line) { const req = new XMLHttpRequest(); req.open('GET', php_file + '?file=' + file + '&line=' + line); req.send(); };})();
+// **********************************************************************************
 		window.onload = initialize;
 // **********************************************************************************
-var actors = [
-	{ "Name": "Julius" },
-	{ "Name": "Fredegunda" },
-	{ "Name": "Sinchi Roca" },
-	{ "Name": "Caligula" },
-	{ "Name": "Uriah" },
-]
 var encounters = [
-  {
-    "title": "GoneFishing1",
-    "introText": "You grab a hunk of bread and slink through the hall. Opening the door quietly, you slip outside, then stride rapidly towards the stables 200 yards away. With luck, you can get out of Camelot before anybody waylays you.%%\"Arthur! Arthur!\"%%{Dochyell deeinvey! How does that woman do it? She couldn't possibly have heard me!}%%You turn around slowly and slap on the best fake smile you can muster. \"Uh, good morning, Guenevere!\" You must have awakened her when you left. The poor woman didn't come to bed until late last night; she has been working until late every night with some other women repairing clothing.%%\"Arthur, Duless has run out of bay leaves. You'll be going by Yowan's place, won't you?\"%%\"Uh, yes, they're not far from the area I'll be scouting today.\"%%\"Could you stop by Yowan's and pick some bay leaves for Duless?\"%%\"Yeah, sure, I'll do it on the way back from scouting.\"%%\"Thanks.\"%%You turn back towards the stables.%%\"Good luck fishing!\" she calls cheerily.%%{Nathrach, how does she know these things? I didn't breathe a word to anybody that I was going fishing. The last few days have been one pain in the butt after another. The endless squabbles over trivial crap. This one is pissed because his shovel is bent. That one wants me to scold her co-worker for not working hard enough. Somebody else complains that the soup tasted bad the other night. These people are driving me crazy! Guenevere can cope with it, but I've GOT to get out of here and get some peace and quiet! Fishing is the only way I get to rest; it's been weeks since I last went fishing.}%%Cutana is walking along beside you. \"Well, what do YOU have to complain about, dog?\" He looks up at you with eyes full of admiration and loyalty, ready for another adventure. \"I'm sorry, Cutana; you're the most faithful friend I have. I'm glad it's just you and me today. If we catch a fish, you get the head, OK?\"%%Cutana wags his tail vigorously; his face says \"Oh, boy! A fish head! Yummy!\" %%\"Yeah, Cutana, you and me!\"%%You reach the stables. The place is quiet; it's early and most people are just getting up. Your favorite horse has been out hauling manure for the local farmers. You select another horse and toss a big rag over its back. You pull the halter over his head, then set the bit in his mouth and lay the reins behind his neck. You lead him outside; the slope of the hill there gives you a few extra inches of height. You guide him into position and then leap up onto his back. He's an experienced horse, barely shifting in response to your suddenly landing in his back. Your feet hang down loosely on either side of his flanks. He's an older guy and you chose him because he's not frisky; you won't need to spend the day holding on desperately with your knees. %%Cutana is dancing around excitedly; he can see that you're heading out for an adventure. You wink at him. \"Let's get going, Cutana!\" You head for the northeast gate. One of the guards comes down from the overhead lookout and pushes one of the big doors open for you. You feel the warmth of the sun on the side of your face as you head out into a beautiful day. You've got your fishing spool, a bit of bread in your bag, and your dog at your side.",
-    "options": [
-      {
-        "optionText": "\"Let's hit the road, Cutana!\"",
-        "deltaBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaTimid_Dominant": 0,
-        "deltaPBad_Good": 0,
-        "deltaPFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "reactionText": "The two of you head out of Camelot.",
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaTimid_Dominant": 0,
-        "deltaPBad_Good": 0,
-        "deltaPFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "reactionText": "Unused Reaction",
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaTimid_Dominant": 0,
-        "deltaPBad_Good": 0,
-        "deltaPFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "reactionText": "Unused Reaction",
-      }
-    ]
-  },
-  {
-    "title": "GoneFishing2",
-    "introText": "You stay on the old Roman road for only a few miles; it's slower but more pleasant going through the forest. Cutana is having a great time following his nose and chasing after every telltale scent. Even the horse seems happy strolling through the forest. %%You pass by an old abandoned manor. A hundred years ago this place was a bustling hive of activity. There were probably a hundred people employed in and around the manor. You pause to imagine what life was like back then. There would have been plenty of people working on preparing meals for everybody; women making clothes; probably a couple of leather workers making shoes; people cleaning the dirty clothes. The wife of the owner would have overseen all the activity; the owner himself would have spent most of his time out of the house, checking on the farmers to see what they might need, sometimes traveling to Londinium on business. %%You snort with the realization that you do much the same thing as that manor owner, only with a lot more people. There are only a few hundred people at Camelot, but there are hundreds more farmers and cattle-tenders in your domain, and many hundreds more in each of the domains of the kinglets over whom you rule.%%That manor owner had it so much easier than you. He didn't have Saxon invaders to worry about. Britain was at peace; the Roman legions protected it from the Pict barbarians in the north and the Irish pirates in the west. Those filthy Saxons didn't dare come near Britain; any foolish enough to make the attempt were quickly eliminated.%%Those were the days of Romanitas: Roman life and culture. We had Roman technology for making wondrous things. Roman law guaranteed fairness and justice in society. Roman arms kept merchant routes open, and every day ships arriving at Londinium brought all manner of marvelous products from all over the world. Life was bright and orderly; everybody had their fair place in society and people were happy. %%You never directly experienced Romanitas; it was already half-gone when you were a boy. But your uncle Ambrosius Aurelianus delighted in telling you grand tales of what life was like under Romanitas. It seemed heavenly. Now it is gone.%%Now the Saxons have already taken over half the country. You lead the Briton people in the south; further north, other Briton kings try to hold their ground against the ever-growing tide of Saxons and Angles. You've had relative peace for fifteen years now, ever since you kicked their butts at Mount Badon. The Saxons regularly mount raids to steal cattle, pillage, and kill, but the raids are really just demonstrations, not attempts at conquest. %%You give your horse a nod with your reins, and it saunters across the open area around the manor. The roof of the manor house has long since caved in, but there are still roof tiles scattered about. Those old Roman manors were well-built; they didn't leak rain like the thatched roofs your people use now. Of course, buildings like that took a lot of special materials: big oak beams, baked clay roof tiles, bricks, mortar--stuff that had to be brought in from all over the country. They had good roads back then, and plenty of horses and carts to move things.%%You once saw an actual, functioning Roman manor when you were young. It was an impressive building, very large, with a tiled floor and painted walls and plenty of separate rooms. It had rooms on top of the other rooms, and a kind of diagonal ladder for climbing up to the upper rooms. This one, though, was sacked and burned by the Saxons in one of their raids decades ago.%%You sigh. Those were good days. %%Cutana suddenly dashes away at top speed; you can't see what he's after.",
-    "options": [
-      {
-        "optionText": "\"Go get 'em, Cutana!\"",
-        "deltaBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaTimid_Dominant": 0,
-        "deltaPBad_Good": 0,
-        "deltaPFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "reactionText": "He disappears into some bushes but emerges a few moments later, empty of jaw.",
-       },
-      {
-        "optionText": "Unused Option",
-        "deltaBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaTimid_Dominant": 0,
-        "deltaPBad_Good": 0,
-        "deltaPFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "reactionText": "Unused Reaction",
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaTimid_Dominant": 0,
-        "deltaPBad_Good": 0,
-        "deltaPFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "reactionText": "Unused Reaction",
-      }
-    ]
-  },
-  {
-    "title": "GoneFishing3",
-    "introText": "You like to come to this spot on the river. It's quiet and peaceful; nobody ever comes here. It's the border of Briton lands; ten miles east of here is the small river functioning as the border of Saxon lands. In between lie the Empty Lands, where nobody dares set up a farm. Both Britons and Saxons patrol these lands, seldom making contact. But crossing the border rivers entails considerably greater risk, because there are only a few fords. Once you've crossed a border river, you can be trapped by an enemy force waiting to ambush you. This has established an equilibrium between the two sides. Military realities have forced a modicum of peace onto bloodthirsty opponents. %%The river here is broad and shallow; a man on horseback could get across but not on foot. There's a ford about five miles upstream and another about three miles downstream. The river ambles along pleasantly. The near side bank is steep, about six feet high, but the far side is marshy; ducks and geese paddle around there.%%You retrieve your fishing spool from your bag and unwind the string from the wooden float. You pluck a fragment from the hunk of rotten meat you brought and affix it to the hook. Cutana sniffs at the meat but you wave him away. \"Bad meat, Cutana. We'll get you some fresh fish soon enough.\" Holding firmly on the loose end of the string, you toss the float and hook into the water and sit down on a log.%%Now at last you can listen to the birdsong. Listening carefully, you count the different songs; within just a few moments, you've identified eleven different kinds of birds. There are two birds singing a similar song; they alternate in a kind of competition, each one trying to outdo the other. Even the birds have their wars, you muse; wouldn't it be glorious if we humans could fight our wars with songs instead of spears? %%You imagine the battle: the Saxons line up on their side of the battlefield, and the Britons opposite them. The Saxons launch their musical attack with loud, deep voices. The Britons respond with a medley of deep and middle voices. Back and forth the struggle goes, until the Britons unleash their secret weapon: the high voices of the women balanced against the deeper voices of the men. Trounced, the Saxons flee in shame, and the Britons dance in triumph. %%Yes, that's how we should fight our battles, you think. But instead...you recall the young Saxon man you speared a month ago. He was fleeing on foot and you were running him down on your horse. At the last instant, he turned to face you just before the spear rammed into his chest. You cannot purge your mind of the expression of horror and dismay on his face as the spear struck home. You snort angrily and turn your eyes to the distance.%%The forest is continuous all the way to the horizon. For miles and miles the forest stretches, unthinned by human axes. The forest exhales a thin bluish haze. %%Cutana stands beside you in happy camraderie. He's too excited to sit. His alert ears turn to every sound and his eyes dart about in excited appreciation of nature. \"Yep\" you say happily. \"You and me, Cutana. You and me.\"",
-    "ImageLabel": "GoneFishing3",
-    "options": [
-      {
-        "optionText": "I savor the silence.",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Cutana, by contrast, follows every tiny sound. ",
-            "ConsequenceText": "GoneFishing4"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "GoneFishing4",
-    "introText": "\"What am I going to do about that brat Mordred?\" you say to Cutana. He turns to look at you, but doesn't have an answer.  You fantasize about lopping off Mordred's head with a single furious stroke of Excalibur -- but it's only a fantasy. He's your illegitimate son, and killing him would be a shameful act; you'd lose the respect of the people. You may be the king, but there's no long line of kings preceding you, just your uncle Ambrosius Aurelianus. The Britons have been a fractious people ever since the Roman government disintegrated nearly a century ago. They're always squabbling among themselves. Only the threat from the Saxons maintains the fragile coalition underlying your rule. You've got to...%%Suddenly you shake your head and spit. \"Sorry, Cutana, I'm here to fish, not fret over politics.\" Cutana's face says \"Whatever you say, boss!\" You need to clear your mind, to find the emotional strength to cope with the myriad pressures of your life. %%With a start, you realize that there's a man standing on the opposite bank of the river. You're certain that he wasn't there a moment ago. He's wearing long black robes, a serious mien, and appears to be bald. No, wait -- perhaps he's wearing some sort of hat that makes him look bald; you can't tell from this distance. He stands quietly, looking directly at you, without moving. %%\"Hey, you!\" you shout.%%He continues staring at you, but does not respond.%%Perhaps you need to stoke the conversation. \"My name is Arthur. What's yours?\"%%He opens his mouth to answer, but you hear the answer come as a whisper from behind you: \"Merlin\". You whirl around to see who said that, but there's nobody there. You turn back to face him, but he is gone. You stare at the empty riverbank for a long minute, trying to comprehend what just happened, when the string in your hand suddenly jerks.%%\"Look, Cutana, the wooden float is bobbing!\" you cry. He stands up in excited anticipation. You hadn't even noticed the bobbing because you were so entranced by this Merlin fellow. You tighten your grip on the string, then give it a few gentle pulls. The fish takes the bait and suddenly the wooden float disappears. You pull on the string and feel the weight of the fish; it's not especially big, but it's definitely big enough for a meal. Excited, you stand up. Cutana is right there with you, his big ears focused on the spot where the string disappears into the water. He's wagging his tail excitedly.%%\"Cutana, we hooked a fish!\" %%The fish yanks at the string and you let some string play out; you don't want this one getting away by breaking the string and swimming away with your only hook. It would be so embarrassing to have to ask Atrectus the smith to make you another. You pull slowly, gently, then yield when the fish fights. Patiently, you bring the fish closer to the bank. It fights against the string, but your steady, insistent pull and ready yielding when it yanks is inexorably drawing it closer. %%Now you can see it struggling just below the surface. Cutana leaps into the water and seizes it in his jaws, bringing it back to you. You take it out of his mouth; his teeth haven't even broken the fish's skin. He's good that way.%%You place the fish down on a flat rock and decapitate it with your knife. You wrap the fish in a rag and place it in your bag. Cutana helps himself to the head; that's his reward. You give him time to crunch it up, swallow it, and lick up any last little bits. He looks at you as if to say, \"Yum! That was good!\" %%\"Let's go home, boy!\" Turning one last time to glance at the opposite river bank, you mount your horse and head back to Camelot, with Cutana strutting alongside you. You glance down at him just as he's glancing up at you, his long tongue hanging out; the two of you share the feeling of being on top of the world.",
-    "ImageLabel": "GoneFishing4",
-    "options": [
-      {
-        "optionText": "\"You and me, Cutana!\"",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "ReturnFromFishing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Random Encounter",
-    "introText": "",
-    "ImageLabel": "RandomEncounter",
-    "options": [
-      {
-        "optionText": "Goofy",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Doing Nothing",
-    "introText": "Nope, not doing anything at all",
-    "ImageLabel": "RandomEncounter",
-    "options": [
-      {
-        "optionText": "",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "So what?",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Fast Asleep",
-    "introText": "I am fast asleep and unaware of this encounter",
-    "ImageLabel": "RandomEncounter",
-    "options": [
-      {
-        "optionText": "Snore",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Walk Slowly",
-    "introText": "Nothing here",
-    "ImageLabel": "RandomEncounter",
-    "options": [
-      {
-        "optionText": "",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      },
-      {
-        "optionText": "Unused Option",
-        "deltaPBad_Good": 0,
-        "deltaFalse_Honest": 0,
-        "deltaPTimid_Dominant": 0,
-        "DeltaWisdom": 0,
-        "Reaction": [
-          {
-            "reactionText": "Unused Reaction",
-            "ConsequenceText": "Nothing"
-          }
-        ]
-      }
-    ]
-  },
-]
+{
+"title":"Chinese Hassle Philippine Supply Ship",
+"introText":"Once again the Chinese navy has harassed a Philippine supply ship to the Sierra Madre, a Philippine ship that has been grounded on the Second Thomas Shoal, an unpopulated atoll barely above sea level. The shoal is 125 miles from the nearest island, Palawan, which is Philippine territory. It lies within the Exclusive Economic Zone of the Philippines, a region of ocean defined by the United Nations Convention on the Law of the Sea. Other ships are free to sail in a country's EEZ, but they may not fish, look for oil, or exploit the resources of that zone in any way.\nThe Sierra Madre is an old ship left over from World War II. It was transferred to the Philippine navy in the 1970s. The Philippines have posted a detachment of marines on the ship, thereby establishing a legal assertion to Philippine rights in the area.\nChina claims the entire area within what it calls the \"Nine-Dash Line\". Its claim covers almost the entire South China Sea. The Second Thomas Shoal is over 700 miles from the nearest Chinese territory.\nIn this case, a Chinese military vessel sprayed the supply ship with a water cannon, forcing the crew to take refuge inside the vessel.\n\n\n\n\n\n\n\n\n\n",
+"options":[
+{
+"optionText":"\"Tell the State Department to issue a strongly-worded denunciation of the Chinese attack.\"",
+"delta":[
+50,
+50,
+50,
+50,
+50,
+50],
+"reactionText":"The Chinese insist that they have every right to defend their sovereign territory."},
+{
+"optionText":"\"Our diplomatic situation with the Chinese is too delicate just now -- let's not stir things up any further.\" ",
+"delta":[
+50,
+50,
+50,
+50,
+50,
+50],
+"reactionText":"The Chinese seem happy to sweep this under the rug, too."},
+{
+"optionText":"\"Have the Navy send a frigate through the South China Sea as a reminder of our determination to maintain open navigation through the area China claims.\" ",
+"delta":[
+50,
+50,
+50,
+50,
+50,
+50],
+"reactionText":"The Chinese press secretary for the Foreign Ministry denounces the American 'provocation' in strong terms."}]},
+{
+"title":"GoneFishing2",
+"introText":"Second intro text",
+"options":[
+{
+"optionText":"\"Go get 'em, Cutana!\"",
+"delta":[
+50,
+50,
+50,
+50,
+50,
+50],
+"reactionText":"He disappears into some bushes but emerges a few moments later, empty of jaw."},
+{
+"optionText":"Unused Option",
+"delta":[
+50,
+50,
+50,
+50,
+50,
+50],
+"reactionText":"Unused Reaction"},
+{
+"optionText":"Unused Option",
+"delta":[
+50,
+50,
+50,
+50,
+50,
+50],
+"reactionText":"Unused Reaction"}]}]
+// **********************************************************************************
 	</script>
-</head>
 <body font-family: Verdana, Helvetica, sans-serif; style="background-color:#FFFFFF">
+	<dialog>
+  	<p id="enterLabel">Enter name of new encounter:</p>
+		<textarea autofocus id="newEncounterName" name="Josephine" rows="1" cols="33"></textarea>
+  	<button id="OKAddButton">Add</button>
+  	<button id="CancelAddButton">Cancel</button>
+	</dialog>
     <div class="wrapper">
         <div id="topLeft" class="leftTop">
-            <button id="addButton" type="button" class="bigButton">+</button>
+    				<button id="addButton" type="button" onclick="addButtonClick()" class="bigButton">+</button>
             <label>Encounters</label>
             <button id="deleteButton" type="button" class="bigButton">-</button>
         </div>
@@ -650,18 +540,24 @@ var encounters = [
         </div>
         <div id="topRight" class="rightTop">
             <label>Reactions</label>
+            <!--
             <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">Miscellaneous</button>
+                <button onclick="myFunction()" class="dropbtn">File</button>
                 <div id="myDropdown" class="dropdown-content">
                     <a href="#load">Load</a>
                     <a href="#save">Save</a>
                     <a href="#monkeys">Monkeys</a>
+                    <a href="#rename1">Rename variables...</a>
+                    <a href="#rename2">Rename encounter...</a>
                 </div>
             </div>
+            -->
+    				<button id="saveButton" type="button" onclick="saveButtonClick()" class="bigButton">Save</button>
+            
         </div>
         <div id="bottomLeft" class="leftBottom">
             <div style="border:2px solid; overflow:auto;">
-                <select id="encounterList"  class="encList" multiple></select> 
+                <select id="encounterList"  class="encList" size="16"></select> 
             </div>
         </div>
         <div id="bottomCenter" class="centerBottom">
@@ -675,94 +571,94 @@ var encounters = [
 						<div class="sliderElement" id="slideContainer0">
 							<label class="variableNameLabel" id="sliderLabel0">∆Bad_Good</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider0">
-  						<label class="valueLabel" id="valueLabel0">50</label>
+  						<label class="valueLabel" id="valueLabel0">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer1">
 							<label class="variableNameLabel" id="sliderLabel1">∆False_Honest</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider1">
-  						<label class="valueLabel" id="valueLabel1">50</label>
+  						<label class="valueLabel" id="valueLabel1">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer2">
 							<label class="variableNameLabel" id="sliderLabel2">∆Timid_Dominant</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider2">
-  						<label class="valueLabel" id="valueLabel2">50</label>
+  						<label class="valueLabel" id="valueLabel2">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer3">
 							<label class="variableNameLabel" id="sliderLabel3">∆pBad_Good</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider3">
-  						<label class="valueLabel" id="valueLabel3">50</label>
+  						<label class="valueLabel" id="valueLabel3">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer4">
 							<label class="variableNameLabel" id="sliderLabel4">∆pFalse_Honest</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider4">
-  						<label class="valueLabel" id="valueLabel4">50</label>
+  						<label class="valueLabel" id="valueLabel4">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer5">
 							<label class="variableNameLabel" id="sliderLabel5">∆pTimid_Dominant</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider5">
-  						<label class="valueLabel" id="valueLabel5">50</label>
+  						<label class="valueLabel" id="valueLabel5">0.0</lable>
   					</div>
           <textarea id="reaction1" rows="2" cols="60" class="reactionElement">Y</textarea>
 						<div class="sliderElement" id="slideContainer6">
 							<label class="variableNameLabel" id="sliderLabel6">∆Bad_Good</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider6">
-  						<label class="valueLabel" id="valueLabel6">50</label>
+  						<label class="valueLabel" id="valueLabel6">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer7">
 							<label class="variableNameLabel" id="sliderLabel7">∆False_Honest</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider7">
-  						<label class="valueLabel" id="valueLabel7">50</label>
+  						<label class="valueLabel" id="valueLabel7">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer8">
 							<label class="variableNameLabel" id="sliderLabel8">∆Timid_Dominant</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider8">
-  						<label class="valueLabel" id="valueLabel8">50</label>
+  						<label class="valueLabel" id="valueLabel8">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer9">
 							<label class="variableNameLabel" id="sliderLabel9">∆pBad_Good</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider9">
-  						<label class="valueLabel" id="valueLabel9">50</label>
+  						<label class="valueLabel" id="valueLabel9">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer10">
 							<label class="variableNameLabel" id="sliderLabel10">∆pFalse_Honest</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider10">
-  						<label class="valueLabel" id="valueLabel10">50</label>
+  						<label class="valueLabel" id="valueLabel10">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer11">
 							<label class="variableNameLabel" id="sliderLabel11">∆pTimid_Dominant</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider11">
-  						<label class="valueLabel" id="valueLabel11">50</label>
+  						<label class="valueLabel" id="valueLabel11">0.0</lable>
   					</div>
           <textarea id="reaction2" rows="2" cols="60" class="reactionElement">Z</textarea>
 						<div class="sliderElement" id="slideContainer12">
 							<label class="variableNameLabel" id="sliderLabel12">∆Bad_Good</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider12">
-  						<label class="valueLabel" id="valueLabel12">50</label>
+  						<label class="valueLabel" id="valueLabel12">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer13">
 							<label class="variableNameLabel" id="sliderLabel13">∆False_Honest</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider13">
-  						<label class="valueLabel" id="valueLabel13">50</label>
+  						<label class="valueLabel" id="valueLabel13">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer14">
 							<label class="variableNameLabel" id="sliderLabel14">∆Timid_Dominant</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider14">
-  						<label class="valueLabel" id="valueLabel14">50</label>
+  						<label class="valueLabel" id="valueLabel14">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer15">
 							<label class="variableNameLabel" id="sliderLabel15">∆pBad_Good</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider15">
-  						<label class="valueLabel" id="valueLabel15">50</label>
+  						<label class="valueLabel" id="valueLabel15">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer16">
 							<label class="variableNameLabel" id="sliderLabel16">∆pFalse_Honest</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider16">
-  						<label class="valueLabel" id="valueLabel16">50</label>
+  						<label class="valueLabel" id="valueLabel16">0.0</lable>
   					</div>
 						<div class="sliderElement" id="slideContainer17">
 							<label class="variableNameLabel" id="sliderLabel17">∆pTimid_Dominant</label>
   						<input type="range" min="1" max="100" value="50" class="slider" id="slider17">
-  						<label class="valueLabel" id="valueLabel17">50</label>
+  						<label class="valueLabel" id="valueLabel17">0.0</lable>
   					</div>
 					</div>
         </div>
