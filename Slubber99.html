@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slubber99</title>
+    <link rel="stylesheet" href="slubber99_styles.css">
+	<script src="slubber99.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Top Row: Headers -->
+        <div id="topLeft" class="leftTop">
+            <label class="dumbLabel">Incidents</label>
+            <button id="renameButton" type="button" class="bigButton" title="rename the selected Incident">🥸</button>
+        </div>
+        <div id="topCenter" class="centerTop">
+            <label class="introTitleClass">Introduction</label>
+            <span class="separator">...............................</span>
+            <label class="optionTitleClass">Options</label>
+        </div>
+        <div id="topRight" class="rightTop">
+            <label class="reactionLabel">Reactions</label>
+            <span class="separator">.........................</span>
+            <button id="saveButton" type="button" class="bigButton">Save</button>
+        </div>
+
+        <!-- Bottom Row: Content -->
+        <div id="bottomLeft">
+            <div class="scrollContainer">
+                <select id="incidentList" class="incidentClass" size="36" oncontextmenu="shiftKeyDown()"></select>
+            </div>
+        </div>
+        <div id="bottomCenter">
+            <textarea id="introText" name="introText" rows="22" cols="70" class="mainText"></textarea>
+            <div class="optionGroup">
+                <textarea id="choice0" rows="3" cols="70" class="optionText"></textarea>
+                <select name="consequence1" id="conseq1" class="conseqSelector">
+                    <option value="none">none</option>
+                </select>
+            </div>
+            <div class="optionGroup">
+                <textarea id="choice1" rows="3" cols="70" class="optionText"></textarea>
+                <select name="consequence2" id="conseq2" class="conseqSelector">
+                    <option value="none">none</option>
+                </select>
+            </div>
+            <div class="optionGroup">
+                <textarea id="choice2" rows="3" cols="70" class="optionText"></textarea>
+                <select name="consequence3" id="conseq3" class="conseqSelector">
+                    <option value="none">none</option>
+                </select>
+            </div>
+        </div>
+        <div id="bottomRight" class="rightBottom">
+            <br>
+            <div class="sliderElement" id="slideContainer0">
+                <input type="text" class="sliderLabelClass" id="sliderLabel0">
+                <input type="range" min="1" max="100" value="50" class="slider" id="slider0">
+                <label class="valueLabel" id="valueLabel0">0.0</label>
+            </div>
+            <div class="sliderElement" id="slideContainer1">
+                <input type="text" class="sliderLabelClass" id="sliderLabel1">
+                <input type="range" min="1" max="100" value="50" class="slider" id="slider1">
+                <label class="valueLabel" id="valueLabel1">0.0</label>
+            </div>
+            <div class="sliderElement" id="slideContainer2">
+                <input type="text" class="sliderLabelClass" id="sliderLabel2">
+                <input type="range" min="1" max="100" value="50" class="slider" id="slider2">
+                <label class="valueLabel" id="valueLabel2">0.0</label>
+            </div>
+            <br>
+            <div class="sliderElement" id="slideContainer3">
+                <input type="text" class="sliderLabelClass" id="sliderLabel3">
+                <input type="range" min="1" max="100" value="50" class="slider" id="slider3">
+                <label class="valueLabel" id="valueLabel3">0.0</label>
+            </div>
+            <div class="sliderElement" id="slideContainer4">
+                <input type="text" class="sliderLabelClass" id="sliderLabel4">
+                <input type="range" min="1" max="100" value="50" class="slider" id="slider4">
+                <label class="valueLabel" id="valueLabel4">0.0</label>
+            </div>
+            <div class="sliderElement" id="slideContainer5">
+                <input type="text" class="sliderLabelClass" id="sliderLabel5">
+                <input type="range" min="1" max="100" value="50" class="slider" id="slider5">
+                <label class="valueLabel" id="valueLabel5">0.0</label>
+            </div>
+            <br>
+            <div class="sliderElement" id="slideContainer6">
+                <input type="text" class="sliderLabelClass" id="sliderLabel6">
+                <input type="range" min="1" max="100" value="50" class="slider" id="slider6">
+                <label class="valueLabel" id="valueLabel6">0.0</label>
+            </div>
+            <div class="sliderElement" id="slideContainer7">
+                <input type="text" class="sliderLabelClass" id="sliderLabel7">
+                <input type="range" min="1" max="100" value="50" class="slider" id="slider7">
+                <label class="valueLabel" id="valueLabel7">0.0</label>
+            </div>
+            <div class="sliderElement" id="slideContainer8">
+                <input type="text" class="sliderLabelClass" id="sliderLabel8">
+                <input type="range" min="1" max="100" value="50" class="slider" id="slider8">
+                <label class="valueLabel" id="valueLabel8">0.0</label>
+            </div>
+             <br>
+           <div class="container" id="leafSetter">
+  						<div class="firstColor" style="background-color:rgb(255,184,254);">
+            		<label class="leafLabel" id="leafLabel1">Palm Leaf 1</label>
+            		<br><br>
+            		<button class="upDownButton" id="upDownButton11" type="button">+</button>
+                <select name="stupidName1A" class="quantifierMenu" id="quantifier1A">
+                	<option value="All">All</option>
+                	<option value="Big">Big</option>
+                	<option value="Some">Some</option>
+                	<option value="Small">Small</option>
+                	<option value="None">None</option>                
+                </select>
+            		<label class="globalLabel" id="globalLabel1A">Global1</label> 
+								<br><br>
+								<button class="upDownButton" id="upDownButton12" type="button">+</button>
+								<select name="stupidName1B" class="quantifierMenu" id="quantifier1B">
+                	<option value="All">All</option>
+                	<option value="Big">Big</option>
+                	<option value="Some">Some</option>
+                	<option value="Small">Small</option>
+                	<option value="None">None</option>                
+								</select>
+								<label class="globalLabel" id="globalLabel1B">Global2</label>  
+								<br><br>
+								<button class="upDownButton" id="upDownButton13" type="button">+</button>
+								<select name="stupidName1C" class="quantifierMenu" id="quantifier1C">
+                	<option value="All">All</option>
+                	<option value="Big">Big</option>
+                	<option value="Some">Some</option>
+                	<option value="Small">Small</option>
+                	<option value="None">None</option>                
+								</select>
+								<label class="globalLabel" id="globalLabel1C">Global3</label> 
+  						</div>
+  						<div class="secondColor"style="background-color:rgb(174,228,174);">
+								<label class="leafLabel" id="leafLabel2">Palm Leaf 2</label>
+								<br><br>
+								<button class="upDownButton" id="upDownButton21" type="button">+</button>
+								<select name="stupidName2A" class="quantifierMenu" id="quantifier2A">
+                	<option value="All">All</option>
+                	<option value="Big">Big</option>
+                	<option value="Some">Some</option>
+                	<option value="Small">Small</option>
+                	<option value="None">None</option>                
+								</select>
+								<label class="globalLabel" id="globalLabel2A">Global1</label> 
+								<br><br>
+								<button class="upDownButton" id="upDownButton22" type="button">+</button>
+								<select name="stupidName2B" class="quantifierMenu" id="quantifier2B">
+                	<option value="All">All</option>
+                	<option value="Big">Big</option>
+                	<option value="Some">Some</option>
+                	<option value="Small">Small</option>
+                	<option value="None">None</option>                
+								</select>
+								<label class="globalLabel" id="globalLabel2B">Global2</label>  
+								<br><br>
+								<button class="upDownButton" id="upDownButton23" type="button">+</button>
+								<select name="stupidName2C" class="quantifierMenu" id="quantifier2C">
+                	<option value="All">All</option>
+                	<option value="Big">Big</option>
+                	<option value="Some">Some</option>
+                	<option value="Small">Small</option>
+                	<option value="None">None</option>                
+								</select>
+								<label class="globalLabel" id="globalLabel2C">Global3</label> 
+  						</div>
+  						<div class="thirdColor"style="background-color:rgb(133,255,255);">
+								<label class="leafLabel" id="leafLabel3">Palm Leaf 3</label>
+								<br><br>
+								<button class="upDownButton" id="upDownButton31" type="button">+</button>
+								<select name="stupidName3A" class="quantifierMenu" id="quantifier3A">
+                	<option value="All">All</option>
+                	<option value="Big">Big</option>
+                	<option value="Some">Some</option>
+                	<option value="Small">Small</option>
+                	<option value="None">None</option>                
+								</select>
+								<label class="globalLabel" id="globalLabel3A">Global1</label> 
+								<br><br>
+								<button class="upDownButton" id="upDownButton32" type="button">+</button>
+								<select name="stupidName3B" class="quantifierMenu" id="quantifier3B">
+                	<option value="All">All</option>
+                	<option value="Big">Big</option>
+                	<option value="Some">Some</option>
+                	<option value="Small">Small</option>
+                	<option value="None">None</option>                
+								</select>
+								<label class="globalLabel" id="globalLabel3B">Global2</label>  
+								<br><br>
+								<button class="upDownButton" id="upDownButton33" type="button">+</button>
+								<select name="stupidName3C" class="quantifierMenu" id="quantifier3C">
+								  <option value="All">All</option>
+                	<option value="Big">Big</option>
+                	<option value="Some">Some</option>
+                	<option value="Small">Small</option>
+                	<option value="None">None</option>                
+								</select>
+								<label class="globalLabel" id="globalLabel3C">Global3</label> 
+ 							</div>
+						</div>
+        </div>
+    </div>
+</body>
+</html>

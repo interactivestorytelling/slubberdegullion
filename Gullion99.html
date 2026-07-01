@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gullion99</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .title {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .incident-title {
+            color: #e74c3c;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .introduction {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            border-left: 4px solid #3498db;
+            white-space: pre-line;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .choice {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .choice:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .choice:active {
+            transform: translateY(0);
+        }
+
+        .variables {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .variable {
+            text-align: center;
+        }
+
+        .variable-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .variable-value {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .error {
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .load-button {
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .load-button:hover {
+            background-color: #229954;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .variables {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Gullion99</h1>
+        
+        <div class="variables">
+            <div class="variable">
+                <div class="variable-label">Variable 1</div>
+                <div class="variable-value" id="var1">0</div>
+            </div>
+            <div class="variable">
+                <div class="variable-label">Variable 2</div>
+                <div class="variable-value" id="var2">0</div>
+            </div>
+            <div class="variable">
+                <div class="variable-label">Variable 3</div>
+                <div class="variable-value" id="var3">0</div>
+            </div>
+        </div>
+
+        <button class="load-button" onclick="loadNewStory()">Load New Story</button>
+
+        <div id="incident-content">
+            <div class="incident-title" id="incident-title">Loading...</div>
+            <div class="introduction" id="introduction">Please wait while the story loads...</div>
+            <div class="choices" id="choices"></div>
+        </div>
+
+        <div id="error-message" class="error" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Global variables
+        let globalVariable1 = 0;
+        let globalVariable2 = 0;
+        let globalVariable3 = 0;
+        let currentIncident = "Introduction"; // Starting incident
+        let storyWorldData = []; // Will be loaded from JSON file
+
+        // DOM elements
+        const incidentTitle = document.getElementById('incident-title');
+        const introduction = document.getElementById('introduction');
+        const choices = document.getElementById('choices');
+        const var1Display = document.getElementById('var1');
+        const var2Display = document.getElementById('var2');
+        const var3Display = document.getElementById('var3');
+        const errorMessage = document.getElementById('error-message');
+
+        // Update variable displays
+        function updateVariableDisplay() {
+            var1Display.textContent = globalVariable1;
+            var2Display.textContent = globalVariable2;
+            var3Display.textContent = globalVariable3;
+        }
+
+        // Find incident by title
+        function findIncident(title) {
+            for (let i = 0; i < storyWorldData.length; i++) {
+                if (storyWorldData[i].title === title) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        // Display incident
+        function displayIncident(incidentTitle) {
+            const incidentIndex = findIncident(incidentTitle);
+            
+            if (incidentIndex < 0) {
+                showError(`Incident "${incidentTitle}" not found!`);
+                return;
+            }
+
+            const incident = storyWorldData[incidentIndex];
+            
+            hideError();
+            
+            // Update title and introduction
+            document.getElementById('incident-title').textContent = incident.title;
+            introduction.textContent = incident.introText;
+            
+            // Clear previous choices
+            choices.innerHTML = '';
+            
+            // Create choice buttons
+            incident.choices.forEach((choice, index) => {
+                const choiceButton = document.createElement('button');
+                choiceButton.className = 'choice';
+                choiceButton.textContent = choice.choiceText;
+                
+                choiceButton.addEventListener('click', () => {
+                    handleChoice(choice);
+                });
+                
+                choices.appendChild(choiceButton);
+            });
+        }
+
+        // Handle choice selection
+        function handleChoice(choice) {
+            // Apply deltas to global variables
+            globalVariable1 += choice.delta[0]-50;
+            globalVariable2 += choice.delta[1]-50;
+            globalVariable3 += choice.delta[2]-50;
+            
+            // Update display
+            updateVariableDisplay();
+            
+            // Move to next incident
+            currentIncident = choice.consequence;
+            displayIncident(currentIncident);
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        // Hide error message
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+
+        // Load JSON file from user's computer
+        function loadStoryWorldData() {
+            return new Promise((resolve, reject) => {
+                // Create a file input element
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = '.json';
+                fileInput.style.display = 'none';
+                
+                // Add the input to the document
+                document.body.appendChild(fileInput);
+                
+                fileInput.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    
+                    if (!file) {
+                        // User cancelled the file selection
+                        document.body.removeChild(fileInput);
+                        reject(new Error('No file selected'));
+                        return;
+                    }
+                    
+                    // Check if it's a JSON file
+                    if (!file.name.toLowerCase().endsWith('.json')) {
+                        document.body.removeChild(fileInput);
+                        reject(new Error('Please select a JSON file'));
+                        return;
+                    }
+                    
+                    // Read the file
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        try {
+                            const jsonData = JSON.parse(e.target.result);
+                            document.body.removeChild(fileInput);
+                            resolve(jsonData);
+                        } catch (error) {
+                            document.body.removeChild(fileInput);
+                            reject(new Error('Invalid JSON file: ' + error.message));
+                        }
+                    };
+                    
+                    reader.onerror = function() {
+                        document.body.removeChild(fileInput);
+                        reject(new Error('Error reading file'));
+                    };
+                    
+                    reader.readAsText(file);
+                });
+                
+                // Show the file picker
+                fileInput.click();
+            });
+        }
+
+        // Load new story (can be called by button or initialization)
+        async function loadNewStory() {
+            try {
+                // Show loading message
+                document.getElementById('incident-title').textContent = 'Loading Story...';
+                document.getElementById('introduction').textContent = 'Please select your story world JSON file.';
+                
+                // Load the story data
+                storyWorldData = await loadStoryWorldData();
+                
+                // Verify the data has the expected structure
+                if (!Array.isArray(storyWorldData) || storyWorldData.length === 0) {
+                    throw new Error('Story world data should be a non-empty array');
+                }
+                
+                // Reset game state
+                globalVariable1 = 0;
+                globalVariable2 = 0;
+                globalVariable3 = 0;
+                currentIncident = "Introduction";
+                
+                // Check if the starting incident exists
+                const startingIncidentIndex = findIncident(currentIncident);
+                if (startingIncidentIndex < 0) {
+                    throw new Error(`Starting incident "${currentIncident}" not found in the story data`);
+                }
+                
+                // Initialize the game
+                updateVariableDisplay();
+                displayIncident(currentIncident);
+                
+                console.log('Story world loaded successfully:', storyWorldData.length, 'incidents');
+                
+            } catch (error) {
+                showError('Failed to load story: ' + error.message);
+                console.error('Error loading story:', error);
+            }
+        }
+
+        // Initialize the application
+        async function init() {
+            updateVariableDisplay();
+            
+            // Show initial message
+            document.getElementById('incident-title').textContent = 'Welcome to Story World';
+            document.getElementById('introduction').textContent = 'Click "Load New Story" to begin your adventure by selecting a JSON story file.';
+        }
+
+        // Start the application when the page loads
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>

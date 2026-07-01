@@ -1,0 +1,1195 @@
+[
+  {
+    "title": "Introduction",
+    "introText": "\"Hey, Chuck! What's happening?\"\n\nRecognizing Albert's voice, you reply without turning to face him, \"Very little\"\n\n\"Boring! Looks like you're in need of a little action\" he laughs.\n\nYou turn awkwardly on the bench. \"Uh-oh! Your ideas of action usually entail something... dubious.\"\n\n\"But of course, my friend! That's what makes it fun!\" \n\n\"Aaarh!\" you groan. \"You're such a scamp... a FUN scamp... but....\"\n\n\"But what?\" Albert shoots back. \"Without me, you're a drudge. Don't be so serious!\" \n\nYou laugh. It's true -- Albert and you are the oddest of couples, your strengths complementing each other and your weaknesses cancelling each other out. That's why you have been friends for so long.\n\n\"Yeah, yeah, maybe so, but I've got a midterm English lit test tomorrow and I need to finish reading this Byron piece.\"\n\n\"OK, OK, I'll let you study, but I'll cook up an adventure for the two of us for afterwards, OK?\"",
+    "choices": [
+      {
+        "choiceText": "\"Yeah, sure, we can talk after tomorrow.\"",
+        "delta": [
+          51,
+          58,
+          50
+        ],
+        "consequence": "AlbertsProposal"
+      },
+      {
+        "choiceText": "\"I'll be all ears -- AFTER tomorrow!\"",
+        "delta": [
+          54,
+          51,
+          52
+        ],
+        "consequence": "AlbertsProposal"
+      },
+      {
+        "choiceText": "\"Yeah... maybe.\"",
+        "delta": [
+          47,
+          50,
+          47
+        ],
+        "consequence": "AlbertsProposal"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "AlbertsProposal",
+    "introText": "The English lit test wasn't so hard; you think you did reasonably well on it. Now it's time to turn to the test in your Interactive Storytelling class. You've found a nice spot under one of the trees on the Quad where you like to study. You need to get through two of the chapters in Crawford's book before Monday next week. You're plowing through it when Albert makes his appearance. \n\n\"Hey, buddy, buddy, buddy! How'd that test go?\" \n\n\"I think I did OK on it. Maybe...\"\n\n\"Good for you! As promised, I've cooked up a great prank for us. You're gonna love this one!\" \n\nYou smile, trying to conceal your wariness. Each of Albert's pranks has grown riskier than the previous one. \"OK, what is it this time?\" you ask.\n\n\"My biology professor showed off his monkey in class yesterday. He's a cute little guy; the prof keeps him in a big cage in his lab. What say we break into the biology lab on Sunday night and liberate said monkey?\"\n\n\"Whoa! Whoa! The little guy could get hurt or lost or even killed! No way!\"\n\n\"No, I'm not proposing that we let him out of the biology lab. Just let him out of his cage so that he's loose when the prof comes in Monday morning. We can close the cage door after we let him out, and make it look like the monkey found a hole in the cage. It'll drive Dr. Morgan crazy trying to figure out how he did it. Nifty, huh?\"\n\nYou can't suppress a wicked grin. \"Yep, that sounds good. But how do you propose to get inside that lab? Surely the door is locked.\" \n\n\"Camden Hall is like a hundred years old, and the locks on the doors are ancient. I can pick that lock in a few minutes. No sweat.\" \n\n\"Hmm...\" You close your textbook and sit up. \"What about the security system? Won't the front door be locked? What if they have cameras covering the approaches?\"\n\n\"Not a problem. The front doors are new and their locks are probably unpickable, but there's an old wooden side door. I'm pretty sure I can pick it, too.\"\n\n\"What about the security guards?\"\n\n\"I watched for a while last night and didn't see anybody. I'll keep an eye on that door again tonight to see if anybody comes by.\"",
+    "choices": [
+      {
+        "choiceText": "\"Well, OK, but I'm bailing if anything looks wonky to me.\"",
+        "delta": [
+          53,
+          56,
+          46
+        ],
+        "reactionText": "Unused Reaction",
+        "consequence": "SettingTheTime"
+      },
+      {
+        "choiceText": "\"OK, I'm in. This should be good. I just wish that I could see what happens Monday morning.\" ",
+        "delta": [
+          52,
+          51,
+          55
+        ],
+        "reactionText": "Unused Reaction",
+        "consequence": "SettingTheTime"
+      },
+      {
+        "choiceText": "\"I don't know... if we're caught, we could be thrown out of school. That's just too damn risky.\" ",
+        "delta": [
+          47,
+          55,
+          47
+        ],
+        "reactionText": "Unused Reaction",
+        "consequence": "AlbertPressuresChuck"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "AlbertPressuresChuck",
+    "introText": "\"Oh, come on!\" Albert protests. \"We'll do it at 3 in the morning; there's nobody roaming around campus at that time. That door isn't well lit; the nearest light is a small walkway light about 10 yards away; it barely illuminates the side door. We won't need a flashlight; I pick locks by feel. And we won't need to make a sound during the entire time. This is a piece of cake!\"",
+    "choices": [
+      {
+        "choiceText": "\"OK, if you say so. But you'd better be right. And I'm outta there if there's even a whisper of risk!\"",
+        "delta": [
+          54,
+          52,
+          45
+        ],
+        "consequence": "SettingTheTime"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "SettingTheTime",
+    "introText": "\"Great!\" Albert enthuses. He glances around conspiratorially. \"Let's meet at the entry drive to the loading dock behind Camden Hall. It's easy to stay out of sight there.\"\n\n\"What time?\" you ask.\n\n\"3:00 AM. Be there on time this time, OK?\" \n\n\"Sure. Sorry about that mess-up last time.\"\n\n\"Any last questions?\"",
+    "choices": [
+      {
+        "choiceText": "\"Nope. Looks straightforward.\" ",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "3AM"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "3AM",
+    "introText": "It's a cold night; you stuff your fists into your jacket pockets as you scurry down the sidewalk. You tell yourself to scurry as nonchalantly as possible; it's not working. But there isn't a soul out at this time. So far, so good.\n\nAlbert is waiting next to a tree; it shades him from the nearby streetlight. You don't see him until you're only about 10 feet away. He steps onto the sidewalk to intercept you. \"Ready?\" he whispers. \n\n\"Ready\" you whisper back. Given the complete absence of anybody else, it seems rather silly to be whispering, but you don't want to take any chances. \n\nAlbert leads the way to the side door. It's so dark that he must grope around to find the door lock. He struggles for several minutes to get his tools inserted. He gives up and pulls a small flashlight out of his pocket. He turns it on; it's a red light flashlight. He holds it in his mouth while he fiddles about with his tools. After some more effort, he suddenly freezes, then carefully pushes the latch. The door swings open!\n\n\"What'd I tell you?\" he whispers. \"Piece o' cake!\"\n\nYou follow him into the hallway, closing the door gently behind you. The halls are dimly lit by some overhead light fixtures. Fortunately, the exterior walls have no windows, so nobody outside can see you. Moving quickly, he leads you around several corners before entering a short hallway with a single door at the end. \"And here we are!\" he announces.\n\nHe sets to work again, holding his flashlight in his mouth as he fumbles with his tools. This lock is a tougher challenge; he fumbles for several minutes without success. At one point, his hand slips and both of his picks fall, striking the ground with what seems to be a deafening crash.",
+    "choices": [
+      {
+        "choiceText": "\"Let's get outta here!\" you whisper urgently and perhaps too loudly.",
+        "delta": [
+          44,
+          58,
+          46
+        ],
+        "consequence": "AlbertReassuresChuck"
+      },
+      {
+        "choiceText": "Albert looks abashed, but his wink restores your confidence.",
+        "delta": [
+          56,
+          45,
+          50
+        ],
+        "consequence": "TheGraduateStudent"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "AlbertReassuresChuck",
+    "introText": "\"Don't panic!\" Albert hisses. \"We're OK; there's nobody inside this building at this time. Just stay cool, OK?\"",
+    "choices": [
+      {
+        "choiceText": "I look at him grimly but remain in place.",
+        "delta": [
+          52,
+          47,
+          50
+        ],
+        "consequence": "TheGraduateStudent"
+      },
+      {
+        "choiceText": "I grin and nod eagerly",
+        "delta": [
+          50,
+          48,
+          55
+        ],
+        "consequence": "TheGraduateStudent"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "TheGraduateStudent",
+    "introText": "Albert resumes his efforts. You watch him closely; his hands work the two picks this way and that, trying to find a way through the lock. It's fascinating how he works his tools; there's a technique to it, but you can't quite figure it out. You stare intently.\n\n\"Hey! What are you guys doing?\" somebody shouts.\n\nYou whirl around and see a fellow standing at the end of the hallway only fifteen feet away. He's wearing a parka and seems to have just entered from the same side door you came through. He's young -- probably a graduate student. \n\n\"Uhh...\" you stutter.\n\n\"Run for it!\" Albert shouts, and bolts down the hallway, aiming to evade the intruder. But the stranger moves to block his path, and Albert bowls into him like a football defensive end. You find your feet and start running, too. The stranger falls and you catch up with Albert. The two of you dash down the adjoining hallway, around the corner, and to the side door, which Albert tears open. You pass through it and Albert closes it loudly. \n\nThe two of you flee along the grass, staying away from the illuminated sidewalk. You go three blocks before Albert stops at a tree, panting. You can't see his face in the dark, but you can tell that he's shaken. \n\n\"Who the hell was that?\" he gasps.\n\n\"I'd guess it was a graduate student. Maybe he was coming in to check on some experiment. Or something else. I dunno.\" \n\n\"I don't think he's chasing us,\" Albert says, \"but we'd better get home quick. He's probably called the campus police; they'll be out looking for us. Let's split up and go back to our dorms. We can talk about it in the morning. I'll see you at the cafeteria at, what, 8:00?\"",
+    "choices": [
+      {
+        "choiceText": "\"OK\" I pant, and head for my dorm.",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheCafeteria"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "TheCafeteria",
+    "introText": "The alarm on your phone honks for nearly a minute before you finally rouse yourself. You feel lousy, a weird combination of alarm and drowsiness from too little sleep. Your roommate Teddy has already left. You drag on your clothes and head for the cafeteria. \n\nThe scene at the cafeteria is out of the ordinary; the students aren't quietly eating their breakfasts; they're clustered together in excited chatter. You see Teddy in one group and sidle up to listen in.\n\n\"...bringing in the town police. This kind of thing is way beyond what the campus police can handle.\" \n\nThere's a pause; you seize the opening: \"What kind of thing?\" \n\n\"You haven't heard?\" a girl asks. \"Somebody murdered a guy last night!\"\n\n\"What?!?!\" you exclaim. \"Murdered?!?!?!! Who?\"\n\n\"I don't know. It was over in Camden Hall\" she answers.\n\nA wave of horror sweeps over you; you stumble backwards in shock. A second later, you realize that you shouldn't give yourself away so readily, so you try to cover up. \"That's.... that's... horrible! On our little campus? How can that be?\"\n\nSomebody answers \"I don't know, but we're going to have to be especially careful. We should keep our doors locked and go outside only in groups. No singles.\" \n\nAnother person adds, \"Let's just wait for the college to make an announcement. They'll tell us what to do.\"\n\nYou break away from the little group. Try to look normal, you tell yourself. You meander over to the serving counter, but you avoid the kitchen ladies; you might give yourself away. Instead, you look over some fruit cups, then the muffins, then the bananas, apples, and oranges; then the cereal, the coffee, the croissants, the bread and toaster, then back to the fruit cups. Nothing seems appetizing.\n\n\"Grab something to eat, then let's go to a corner to talk.\" It's Albert. He has a grim look. He snatches a muffin, then stares at you. \"Go ahead, grab something. We need to look normal.\"\n\nYou take a banana and follow Albert to the farthest corner of the cafeteria. \n\n\"That can't be us, can it?\" you ask pleadingly. \n\n\"I don't know. I didn't hit the guy that hard, but he fell down. I didn't hang around to see anything more. I don't know what happened to him.\"\n\n\"This is just unbelievable. I can't believe it. It makes no sense\" you burble.\n\n\"Look, there's nothing we can do until we know more. For now, we shouldn't be seen together. Go someplace where you can be alone, like the library. Don't talk to anyone. Don't call me or text me. I'll find you when I have something useful.\"",
+    "choices": [
+      {
+        "choiceText": "\"OK\"",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheDeansText"
+      },
+      {
+        "choiceText": "\"This is all your fault, Albert!\"",
+        "delta": [
+          44,
+          47,
+          50
+        ],
+        "consequence": "TheDeansText"
+      },
+      {
+        "choiceText": "I should never have gone along with you!\" ",
+        "delta": [
+          44,
+          47,
+          48
+        ],
+        "consequence": "TheDeansText"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "TheDeansText",
+    "introText": "You head to the library like Albert said. You wander into the stacks, and act like you're poking around the books, but you can't think of anything other than the awful mess you've gotten yourself into. How could this have happened? It seemed so simple, so safe... what's going to happen to you?\n\nAfter god knows how long, your phone buzzes. You whip it out to see that a text message has come in. It's from the dean of students:\n\n\"This morning the body of one of our students was discovered in Camden Hall. We are withholding his name until the family has been properly notified. The police believe that there was an altercation and he was pushed so that his head hit a doorknob, inflicting a fatal wound. They are treating it as a homicide and are now gathering evidence to identify the killer.\"\n\n\"We do not believe that there is any danger, but out of an abundance of caution we are cancelling all classes and asking students to remain in their dorms or to travel in groups for safety. We shall issue further announcements as additional information becomes available.\" \n\nYou feel so nauseous that you might throw up. You are being hunted by the police for murder! How could this have gone so bad so easily? You are terrified to leave the privacy of the stacks. You stay there all day, stewing in terror and confusion. Late that night, as the library is closing, you leave and head for your dorm. Much to your relief, no SWAT team awaits you, but you know that it's only a matter of time before the walls close in on you. You crawl into bed and pull the covers over your head.",
+    "choices": [
+      {
+        "choiceText": "I lay awake all night, catching only moments of sleep. ",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Caught"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Caught",
+    "introText": "The next morning, you wake up late, surprised that you haven't yet been seized by the police. You wander down to the cafeteria, as usual, but your appetite is gone. After a few minutes, you return to your room, grab your Psych book, and head for your Psych 101 class.\n\nMuch to your amazement, there are no police cordons. There aren't any police visible anywhere. Perhaps this was all just a crazy nightmare, you think hopefully. You enter Marion Hall and head down the main hallway to the Psych class. Just as you reach the door, a tall man dressed nattily steps in front of you. \n\n\"Hello! Charles Dalembert?\" he asks politely.\n\nYou feel like a bug about to be crushed underfoot; you almost faint. \"Uh, yes, sir. That's me.\" \n\n\"Please come with me\" he requests, again with the utmost courtesy. You see another man approach from down the hall, and, hearing the front doors close, you turn to see two more men approaching from behind. The only thought you have is, \"The jig is up.\" You cannot believe that such a stupid movie quote is your only reaction to this personal catastrophe. \n\nThe men lead you to a police car; you are seated in the back seat between two of the police officers. They're all dressed in street clothes. You sit frozen in terror, staring wide-eyed at nothing. In your mind, the sentence \"The jig is up\" keeps repeating.\n\nOne of the police officers asks, \"How's your day been going?\"",
+    "choices": [
+      {
+        "choiceText": "I almost choke, but manage to cover it with a fake cough. \"Uh, OK, I suppose.\" is all I can croak.",
+        "delta": [
+          49,
+          47,
+          50
+        ],
+        "consequence": "Interrogation"
+      },
+      {
+        "choiceText": "\"I... I... I don't know.\" ",
+        "delta": [
+          48,
+          48,
+          50
+        ],
+        "consequence": "Interrogation"
+      },
+      {
+        "choiceText": "I try to fabricate some breezy, nonchalant answer, but my mind is paralyzed and nothing comes out of my mouth.",
+        "delta": [
+          50,
+          52,
+          50
+        ],
+        "consequence": "Interrogation"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Interrogation",
+    "introText": "At the police station, they lead you into a small room with a small table and a few chairs. You sit down on one of the chairs. One of the police officers sits down across the table from you and the other remains standing to the side.\n\n\"So, Charles, here's the situation. We know that Mr. Radcliffe died yesterday morning around 3:20 AM. We also know, from various security cameras, that you were traveling toward Camden Hall just before 3:00 AM. We also know that your close friend, Albert Spencer, was sighted just before 3:00 AM, also traveling towards Camden Hall. We found his fingerprints on the doorknob of the side door of Camden Hall as well as the doorknob on the door of Professor Morgan's lab. It's pretty obvious what happened: you two were trying to break into Professor Morgan's lab when Mr. Radcliffe came upon you. You attacked him and fled. I'm willing to guess that you didn't mean to kill him -- you have no criminal record and you seem like a nice enough fellow. It was probably an accident -- but he still ended up dead.\"\n\n\"What we can't figure out is who actually killed Mr. Radcliffe: you or Mr. Spencer. But my money is on Mr. Spencer. Therefore, I'm willing to give you a chance to clear yourself of the most serious charges. If you agree to testify that Mr. Spencer was responsible for Mr. Radcliffe's death, we're willing to let you off with just a trespassing charge. If you refuse to testify against Mr. Spencer, we'll charge you both with murder.\" \n\n\"We realize that you're under a lot of pressure, so we want you to take your time. Think it over. We really hope that you'll do the right thing.\" \n\nYou try to think. You recall reading a story like this once. Two guys were accused of a crime, but the police didn't know which one of them did it. The police separated them and offered each one his freedom if he testified against the other one. They realized that, if they both refused to testify, neither could be convicted, but if one agreed to testify, the other would go to jail. If they both agreed to testify, they would both go to jail. That's the jam you're in now. Should you do the right thing and tell the truth, betraying your old friend? Or do you put your loyalty to Albert first? \n\nWith that, both police officers leave the room. There are two cameras on the wall, so you know they're watching you.",
+    "choices": [
+      {
+        "choiceText": "It's my duty to tell the truth. Albert did the deed, he should face the consequences. I can testify in his favor that he had no intention of hurting that guy.",
+        "delta": [
+          54,
+          53,
+          50
+        ],
+        "consequence": "PalmNode"
+      },
+      {
+        "choiceText": "I can't betray my old friend. He's been my friend since we were in grade school. He's stood by me a hundred times. It would be wrong to testify against him.",
+        "delta": [
+          55,
+          46,
+          50
+        ],
+        "consequence": "PalmNode"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "Introduction"
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "Empty",
+    "introText": "",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  },
+  {
+    "title": "PalmNode",
+    "introText": "The moment of truth",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "PalmLeaf1"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "PalmLeaf2"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "PalmLeaf3"
+      }
+    ],
+    "palm": true
+  },
+  {
+    "title": "PalmLeaf1",
+    "introText": "The year is 2070 and you are finally retiring from your job as manager of a data gathering station in the far north of Canada. There isn't a single person within 50 miles of your station; you have been all alone here, with the exception of occasional visits from the resupply airplane, for 30 years. You had a series of jobs before then, all of which were frustrating failures. No matter how good a job you did, some nincompoop always butted in an ruined everything -- then YOU got blamed! After three such experiences, you decided that you never wanted to work with anybody else again. You count yourself lucky to have found this job.\n\nYou hear the buzz of the resupply airplane coming in with your replacement, and to take you away. You hope the idiot pilot doesn't crash the damn plane.",
+    "choices": [
+      {
+        "choiceText": "OK",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheEnd"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheEnd"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheEnd"
+      }
+    ],
+    "palm": true
+  },
+  {
+    "title": "PalmLeaf2",
+    "introText": "The year is 2070. You hurrying through an airport on your way to another board meeting. You sit on the boards of directors of three successful corporations, providing your sagacity and experience to guide them through the complicated problems they face. You have enjoyed a long and intense life. You started off creating interactive storyworlds, then founding a startup with three other energetic young people. After a rocky few years, your startup took off and you suddenly found yourself wealthy. You moved on to another startup, then another, then ended up guiding companies through their growth years. Your wife is urging you to retire, but you're having too much fun.",
+    "choices": [
+      {
+        "choiceText": "OK",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheEnd"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheEnd"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheEnd"
+      }
+    ],
+    "palm": true
+  },
+  {
+    "title": "PalmLeaf3",
+    "introText": "The year is 2070. You're strolling through the forest on the land you bought years ago, thinking about your next book, trying to organize your thoughts into a coherent sequence. It's not one of those old-fashioned print books; it's a hyperbook with lots of connections between the many ideas you wish to communicate. Designing such an intellectually intricate structure is quite a challenge, but you've done it before and you're confident that you'll figure this one out, too.\n\nIt's a summation of your thoughts on interactive drama, the field that you pioneered thirty years ago. There's so much to explain! What seemed back then to be a minor deviation from interactive storytelling has mushroomed into a major field of its own, with endless complexities. Without the AI design systems that had become available in the 2030s, it would not have been possible to orchestrate all the complexities of drama into a coherent system. You harken back to Chris Crawford's Storytron technology and shake your head sadly. That poor chump tried to put all the pieces together using the primitive programming technologies of that time; he never had a chance of succeeding. Still, his boldness had inspired you to re-develop some of his ideas in the more powerful technologies available after he died. He was like that British fellow who tried to invent a computer in the 1840s or the people who tried to get a steam-powered airplane flying. A heroic but doomed enterprise.\n\nYou stop to regard one of the oaks in the forest. It's not doing well; some of its leaves have shriveled. You wonder if perhaps it wouldn't be better to cut it down and open up more space for its neighbors. Not yet, you decide. Then you resume walking and thinking about the new hyperbook.",
+    "choices": [
+      {
+        "choiceText": "OK",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheEnd"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheEnd"
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": "TheEnd"
+      }
+    ],
+    "palm": true
+  },
+  {
+    "title": "TheEnd",
+    "introText": "This is the end.",
+    "choices": [
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      },
+      {
+        "choiceText": "",
+        "delta": [
+          50,
+          50,
+          50
+        ],
+        "consequence": ""
+      }
+    ],
+    "palm": false
+  }
+]
