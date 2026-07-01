@@ -4,19 +4,19 @@ Here’s the Slubber99 window:
 
 <img width="1800" height="934" alt="image" src="https://github.com/user-attachments/assets/5bfa502e-0238-4364-9c21-538fe227809f" />
 
-Left Column (Pink)
+### Left Column (Pink)
 This is your list of Incidents. You are given 35 possible Incidents to work with; you cannot add or delete any Incidents; you can, however, rename an Incident or skip over it. When you need another Incident, simply rename one of the “Empty” Incidents and direct a previous Incident to connect to it.
 
 To select an Incident to work on, simply click on it. The button at the top with the silly icon allows you to rename an Incident.
 
-Center Column (Light Blue)
+### Center Column (Light Blue)
 This is where you do the bulk of your work. The labels at the top of this column (“Introduction” and “Options”) are not functional. My intention was to have the first label (“Introduction”) show the title of the Incident, but I haven’t done that yet. I cannot recall my intent with the “Options” label; I cannot recall what I had for breakfast this morning, either. Oh, wait, I didn’t have breakfast this morning…
 
 The big box is where you enter the main text of the incident. Simply click in the box and start typing. 
 
 Underneath that, in green, is the text of each of the three options. Simply click in the box to edit the text. When you click inside the box, it changes color and is outlined in blue to indicate that it is selected. Underneath the option text rectangle is a popup menu listing all the Incidents. Select the Incident that will be a consequence of this Option if the player chooses it. Ah, now I think I recall why I used a fixed-length array for the Incidents list: changing popup menus in JavaScript is a pain.
 
-Right Column (White)
+### Right Column (White)
 This column allows you to modify the reactions to an option. There are three sets of reactions, one for each Option, because you have been granted by the grace of His Majesty The Magnificent Crawford exactly three global variables, no more, no less. Developers, please do not succumb to your insatiable urge to make it more complex by adding more global variables. The Magnificent Crawford sees all, hears all, and knows all: three global variables is the correct number.
 
 You are permitted to change the names of each global variable. To do so, click on an Option to activate its reaction section, then click on the name of the global variable you wish to rename, type in the new text, and hit return. 
